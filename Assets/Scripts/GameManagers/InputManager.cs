@@ -5,8 +5,8 @@ using UnityEngine;
 public class InputManager : MonoBehaviour {
 
   #region Mono Behaviour
-  	
-	void Update() {
+
+  void Update() {
     if (Input.GetKey("space"))
       EventManager.TriggerEvent(new PlayerShotInput());
     if (Input.GetKey("right"))

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Config {
 
+  public const float BackgroundScrollingSpeed = .03f;
   public const float PlayerBaseSpeed = 10;
 	
 }
