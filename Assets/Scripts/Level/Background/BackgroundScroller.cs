@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 // Based on valryons's Gist: https://gist.github.com/valryon/7547513
 public class BackgroundScroller : MonoBehaviour {
@@ -9,8 +9,7 @@ public class BackgroundScroller : MonoBehaviour {
   #region Mono Behaviour
 
   private Vector2 scrollingVelocity = Vector2.down * Config.BackgroundScrollingSpeed;
-  private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
-  // Works with n sprites of the same size
+  private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>(); // Works with n sprites of the same size
   private float spritesYSize;
 
   #endregion

@@ -22,6 +22,7 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
+    EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
   }
 
   void OnDisable() {
@@ -29,6 +30,7 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StopListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
+    EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
   }
 
   #endregion
@@ -49,6 +51,11 @@ public class PlayerAnimator : MonoBehaviour {
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
     animator.Play("MoveLeft");
+  }
+
+  void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
+    transform.position = Config.PlayerSpawningPosition;
+    animator.Play("Spawn");
   }
 
   #endregion

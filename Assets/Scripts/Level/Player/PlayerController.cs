@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour {
 
   #region Fields
 
-  private Rigidbody2D rb;
-  private CapsuleCollider2D cc;
   private float playerBaseSpeed = Config.PlayerBaseSpeed;
   bool[] constraints = { false, false, false, false };
 
@@ -18,17 +16,13 @@ public class PlayerController : MonoBehaviour {
 
   #region Mono Behaviour
 
-  void Awake() {
-    rb = GetComponent<Rigidbody2D>();
-    cc = GetComponent<CapsuleCollider2D>();
-  }
-
   void OnEnable() {
     EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StartListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
+    EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
   }
 
   void OnDisable() {
@@ -37,6 +31,11 @@ public class PlayerController : MonoBehaviour {
     EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
+    EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
+  }
+
+	void OnCollisionEnter2D(Collision2D collision2D) {
+    EventManager.TriggerEvent(new PlayerHitEvent());
   }
 
   void OnTriggerEnter2D(Collider2D collider) {
@@ -86,7 +85,11 @@ public class PlayerController : MonoBehaviour {
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {
-    Debug.Log("Player shot!");
+    Debug.Log("Player Shot!");
+  }
+
+  void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
+    Debug.Log("Player Hit!");
   }
 
   #endregion

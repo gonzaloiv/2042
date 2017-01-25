@@ -9,3 +9,9 @@ public class MoveUpInput : UnityEvent {}
 public class PlayerShotInput : UnityEvent {}
 
 #endregion
+
+#region Level Mechanics Events
+
+public class PlayerHitEvent : UnityEvent {}
+
+#endregion
