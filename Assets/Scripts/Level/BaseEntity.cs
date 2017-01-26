@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BaseEnemy : MonoBehaviour {
+public class BaseEntity : MonoBehaviour {
   
   #region Mono Behaviour
 
   void OnTriggerEnter2D(Collider2D collider2D) {
-    if(collider2D.gameObject.name == "LevelYConstraint") 
+    string collider2DName = collider2D.gameObject.name;
+    if(collider2DName == "LevelYMinConstraint" || collider2DName == "LevelYMaxConstraint") 
       Disable();
   }
 
   #endregion
 
-  #region Private Behaviour
+  #region Public Behaviour
 
-  private void Disable() {
+  public void Disable() {
     gameObject.SetActive(false);
   }
 

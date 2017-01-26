@@ -15,7 +15,6 @@ public class Game : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
-    // 
     Physics2D.gravity = Config.GlobalGravity;
   }
 

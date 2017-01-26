@@ -8,6 +8,7 @@ public class PlayerAnimator : MonoBehaviour {
   #region Fields
 
   private Animator animator;
+  private ParticleSystem particleSystem;
 
   #endregion
 
@@ -15,6 +16,7 @@ public class PlayerAnimator : MonoBehaviour {
 
   void Awake() {
     animator = GetComponent<Animator>();
+    particleSystem = GetComponentInChildren<ParticleSystem>();
   }
 
   void OnEnable() {
@@ -23,6 +25,7 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
+    EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
   }
 
   void OnDisable() {
@@ -31,6 +34,7 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
+    EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
   }
 
   #endregion
@@ -55,7 +59,11 @@ public class PlayerAnimator : MonoBehaviour {
 
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
     transform.position = Config.PlayerSpawningPosition;
-    animator.Play("Spawn");
+    animator.Play("Respawn");
+  }
+
+  void OnPlayerShotInput(PlayerShotInput playerShotInput) {
+    particleSystem.Play();
   }
 
   #endregion

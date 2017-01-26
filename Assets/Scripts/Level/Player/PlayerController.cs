@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
 
   #region Fields
 
-  private float playerBaseSpeed = Config.PlayerBaseSpeed;
+  private float playerBaseSpeed = Config.PlayerControllerSpeed;
   bool[] constraints = { false, false, false, false };
 
   #endregion
@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour {
     EventManager.StartListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
-    EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
   }
 
@@ -30,12 +29,12 @@ public class PlayerController : MonoBehaviour {
     EventManager.StopListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
-    EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
-    EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
+    EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
   }
 
-	void OnCollisionEnter2D(Collision2D collision2D) {
-    EventManager.TriggerEvent(new PlayerHitEvent());
+  void OnCollisionEnter2D(Collision2D collision2D) {
+    if (!collision2D.gameObject.name.Contains("PlayerShot"))
+      EventManager.TriggerEvent(new PlayerHitEvent());
   }
 
   void OnTriggerEnter2D(Collider2D collider) {
@@ -84,12 +83,9 @@ public class PlayerController : MonoBehaviour {
       transform.Translate(new Vector2(-1, 0) * playerBaseSpeed * Time.deltaTime, Space.World);
   }
 
-  void OnPlayerShotInput(PlayerShotInput playerShotInput) {
-    Debug.Log("Player Shot!");
-  }
-
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
-    Debug.Log("Player Hit!");
+    for (int i = 0; i < constraints.Length; i++)
+      constraints[i] = false;
   }
 
   #endregion

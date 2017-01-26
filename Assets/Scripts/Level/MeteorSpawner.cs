@@ -9,9 +9,11 @@ public class MeteorSpawner : MonoBehaviour {
   [SerializeField] private GameObject[] lgMeteorPrefabs;
   [SerializeField] private GameObject[] mdMeteorPrefabs;
   [SerializeField] private GameObject[] smMeteorPrefabs;
+  [SerializeField] private GameObject[] meteorPrefabs;
   private GameObjectArrayPool lgMeteorPool;
   private GameObjectArrayPool mdMeteorPool;
   private GameObjectArrayPool smMeteorPool;
+  private GameObjectArrayPool meteorPool;
   private Transform levelEnemies;
 
   #endregion
@@ -24,6 +26,7 @@ public class MeteorSpawner : MonoBehaviour {
     lgMeteorPool = Pooler.CreateGameObjectArrayPool("LgMeteorPool", lgMeteorPrefabs, 0, levelEnemies);
     mdMeteorPool = Pooler.CreateGameObjectArrayPool("MdMeteorPool", mdMeteorPrefabs, 0, levelEnemies);
     smMeteorPool = Pooler.CreateGameObjectArrayPool("SmMeteorPool", smMeteorPrefabs, 0, levelEnemies);
+    meteorPool = Pooler.CreateGameObjectArrayPool("MeteorPool", meteorPrefabs, 20, levelEnemies);
   }
 
   void Start() {
@@ -37,11 +40,11 @@ public class MeteorSpawner : MonoBehaviour {
   private IEnumerator SpawnMeteorWave() {
     while (true) {
       for (int i = 0; i < 1; i++) {
-        GameObject meteor = lgMeteorPool.PopObject();
+        GameObject meteor = meteorPool.PopObject();
         meteor.transform.position = new Vector3(Random.Range(-9, 9), 6, 0);
         meteor.SetActive(true);
       }
-      yield return new WaitForSeconds(1);
+      yield return new WaitForSeconds(.5f);
     }
   }
 
