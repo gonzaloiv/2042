@@ -20,18 +20,14 @@ public class PlayerAnimator : MonoBehaviour {
   }
 
   void OnEnable() {
-    EventManager.StartListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
-    EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
   }
 
   void OnDisable() {
-    EventManager.StopListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StopListening<MoveRightInput>(OnMoveRightInput);
-    EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
@@ -41,16 +37,8 @@ public class PlayerAnimator : MonoBehaviour {
 
   #region Event Behaviour
 
-  void OnMoveUpInput(MoveUpInput moveUpInput) {
-    animator.Play("MoveUp");
-  }
-
   void OnMoveRightInput(MoveRightInput moveRightInput) {
     animator.Play("MoveRight");
-  }
-
-  void OnMoveDownInput(MoveDownInput moveDownInput) {
-    animator.Play("MoveDown");
   }
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {

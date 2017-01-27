@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CapsuleCollider2D))]
-public class PlayerShot : BaseEntity {
+public class UFOShot : ShooterBehaviour {
 
   #region Fields 
 
   private Rigidbody2D rb;
   private Animator animator;
-  private float speed = Config.PlayerShotSpeed;
-  private Vector3 direction = Config.PlayerShotDirection;
+  private float speed = Config.BasicShotSpeed;
 
   #endregion
   
@@ -23,14 +20,13 @@ public class PlayerShot : BaseEntity {
   }
 
   void OnEnable() {
-    transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-    rb.velocity = new Vector3(0, 1, 0) * speed;
+    rb.velocity = -transform.up * speed;
     animator.Play("Spawn");
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if(!collision2D.gameObject.name.Contains("Player"))
-     Disable();
+    if(collision2D.gameObject.transform.parent != transform)
+      Disable();
   }
 
   #endregion

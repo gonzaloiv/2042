@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Meteor : BaseEntity {
+public class Meteor : ShooterBehaviour {
 
   #region Mono Behaviour
 

@@ -9,6 +9,7 @@ public class Game : MonoBehaviour {
   [SerializeField] private GameObject playerPrefab;
   [SerializeField] private GameObject backgroundPrefab;
   [SerializeField] private GameObject levelPrefab;
+  [SerializeField] private GameObject shotPrefab;
 
   #endregion
 
@@ -16,10 +17,11 @@ public class Game : MonoBehaviour {
 
   void Awake() {
     Physics2D.gravity = Config.GlobalGravity;
-  }
+    Application.targetFrameRate = 60;
 
-  void Start() {
-		Instantiate(playerPrefab, transform);
+    Pooler.CreateGameObjectPool("ShotPool", shotPrefab, 30, transform);
+
+    Instantiate(playerPrefab, transform);
     Instantiate(backgroundPrefab, transform);
     Instantiate(levelPrefab, transform);
   }

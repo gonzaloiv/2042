@@ -5,16 +5,25 @@ using System.Collections.Generic;
 // Would be cool to have a CharacterController2D...
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(PlayerWeapon))]
 public class PlayerController : MonoBehaviour {
 
   #region Fields
 
+  private PlayerWeapon weapon;
   private float playerBaseSpeed = Config.PlayerControllerSpeed;
   bool[] constraints = { false, false, false, false };
+
+  private float fireRate = Config.PlayerWeaponFireRate;
+  private float nextFire;
 
   #endregion
 
   #region Mono Behaviour
+
+  void Awake() {
+    weapon = GetComponent<PlayerWeapon>();
+  }
 
   void OnEnable() {
     EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
@@ -22,6 +31,7 @@ public class PlayerController : MonoBehaviour {
     EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
+    EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
   }
 
   void OnDisable() {
@@ -30,6 +40,7 @@ public class PlayerController : MonoBehaviour {
     EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
+    EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
@@ -86,6 +97,13 @@ public class PlayerController : MonoBehaviour {
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
     for (int i = 0; i < constraints.Length; i++)
       constraints[i] = false;
+  }
+
+  void OnPlayerShotInput(PlayerShotInput playerShotInput) {
+    if (Time.time > nextFire) {
+      nextFire = Time.time + fireRate;
+      weapon.Shoot();
+    }
   }
 
   #endregion
