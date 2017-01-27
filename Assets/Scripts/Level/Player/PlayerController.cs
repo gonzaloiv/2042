@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour {
 
   private PlayerWeapon weapon;
   private float playerBaseSpeed = Config.PlayerControllerSpeed;
-  bool[] constraints = { false, false, false, false };
 
   private float fireRate = Config.PlayerWeaponFireRate;
   private float nextFire;
@@ -30,7 +29,6 @@ public class PlayerController : MonoBehaviour {
     EventManager.StartListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
-    EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
   }
 
@@ -39,7 +37,6 @@ public class PlayerController : MonoBehaviour {
     EventManager.StopListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
-    EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
   }
 
@@ -48,55 +45,28 @@ public class PlayerController : MonoBehaviour {
       EventManager.TriggerEvent(new PlayerHitEvent());
   }
 
-  void OnTriggerEnter2D(Collider2D collider) {
-    if (collider.gameObject.name == "TopConstraint")
-      constraints[(int) Direction.Up] = true;
-    if (collider.gameObject.name == "RightConstraint")
-      constraints[(int) Direction.Right] = true;
-    if (collider.gameObject.name == "BottomConstraint")
-      constraints[(int) Direction.Down] = true;
-    if (collider.gameObject.name == "LeftConstraint")
-      constraints[(int) Direction.Left] = true;
-  }
-
-  void OnTriggerExit2D(Collider2D collider) {
-    if (collider.gameObject.name == "TopConstraint")
-      constraints[(int) Direction.Up] = false;
-    if (collider.gameObject.name == "RightConstraint")
-      constraints[(int) Direction.Right] = false;
-    if (collider.gameObject.name == "BottomConstraint")
-      constraints[(int) Direction.Down] = false;
-    if (collider.gameObject.name == "LeftConstraint")
-      constraints[(int) Direction.Left] = false;
-  }
-
   #endregion
 
   #region Event Behaviour
 
   void OnMoveUpInput(MoveUpInput moveUpInput) {
-    if (!constraints[(int) Direction.Up])
+    if (transform.position.y < Config.PlayerConstraints[(int) Direction.Up])
       transform.Translate(new Vector2(0, 1) * playerBaseSpeed * Time.deltaTime, Space.World);
   }
 
   void OnMoveRightInput(MoveRightInput moveRightInput) {
-    if (!constraints[(int) Direction.Right])
+    if (transform.position.x < Config.PlayerConstraints[(int) Direction.Right])
       transform.Translate(new Vector2(1, 0) * playerBaseSpeed * Time.deltaTime, Space.World);
   }
 
   void OnMoveDownInput(MoveDownInput moveDownInput) {
-    if (!constraints[(int) Direction.Down])
+    if (transform.position.y > Config.PlayerConstraints[(int) Direction.Down])
       transform.Translate(new Vector2(0, -1) * playerBaseSpeed * Time.deltaTime, Space.World);
   }
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
-    if (!constraints[(int) Direction.Left])
+    if (transform.position.x > Config.PlayerConstraints[(int) Direction.Left])
       transform.Translate(new Vector2(-1, 0) * playerBaseSpeed * Time.deltaTime, Space.World);
-  }
-
-  void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
-    for (int i = 0; i < constraints.Length; i++)
-      constraints[i] = false;
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {

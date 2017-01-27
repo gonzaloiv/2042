@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Animator))]
 public class Meteor : ShooterBehaviour {
 
   #region Mono Behaviour
@@ -24,8 +25,8 @@ public class Meteor : ShooterBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if(collision2D.gameObject.name.Contains("Player"))
-      animator.Play("Die");
+    if (collision2D.gameObject.name.Contains("Player"))
+      Disable();
   }
 
   #endregion

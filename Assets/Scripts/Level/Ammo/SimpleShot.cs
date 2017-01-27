@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(Animator))]
 public class UFOShot : ShooterBehaviour {
 
   #region Fields 
 
   private Rigidbody2D rb;
-  private Animator animator;
-  private float speed = Config.BasicShotSpeed;
+  private Animator anim;
 
   #endregion
   
@@ -16,16 +18,14 @@ public class UFOShot : ShooterBehaviour {
 
   void Awake() {
     rb = GetComponent<Rigidbody2D>();
-    animator = GetComponent<Animator>();
+    anim = GetComponent<Animator>();
   }
 
   void OnEnable() {
-    rb.velocity = -transform.up * speed;
-    animator.Play("Spawn");
+    anim.Play("Spawn");
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if(collision2D.gameObject.transform.parent != transform)
       Disable();
   }
 

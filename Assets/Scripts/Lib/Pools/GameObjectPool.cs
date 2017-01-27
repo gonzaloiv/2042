@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 // Based on TheLiquidFire's: https://theliquidfire.wordpress.com/2015/07/06/object-pooling/
-public class GameObjectPool {
+public class GameObjectPool : IPool {
 
   #region Fields
 
@@ -19,8 +19,7 @@ public class GameObjectPool {
     this.prefab = prefab;
     poolGameObject = new GameObject(poolName);
     poolGameObject.transform.parent = parent;
-    for (int i = 0; i < initialObjectAmount; i++)
-      PushObject(); 
+    Prepopulate(initialObjectAmount);
   }
  
   #endregion
@@ -41,6 +40,11 @@ public class GameObjectPool {
     objects.Add(obj);
 
     return obj;
+  }
+ 
+  public void Prepopulate(int objectAmount) {
+    for(int i = 0; i < objectAmount; i++)
+        PushObject(); 
   }
 
   #endregion

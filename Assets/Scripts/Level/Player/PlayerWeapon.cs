@@ -10,12 +10,14 @@ public class PlayerWeapon : MonoBehaviour {
   private GameObjectPool shotPool;
   private GameObject shot;
 
+  private float shotSpeed = Config.BasicShotSpeed;
+
   #endregion
 
   #region Mono Behaviour
 
   void Awake() {
-    shotPool = Pooler.CreateGameObjectPool(shotPrefab, 10, transform.parent);
+    shotPool = shotPool = Pooler.GetPool<GameObjectPool>("ShotPool");
   }
 
   #endregion
@@ -23,9 +25,12 @@ public class PlayerWeapon : MonoBehaviour {
   #region Event Behaviour
 
   public void Shoot() {
-    shot = shotPool.PopObject();
-    shot.transform.position = transform.position + new Vector3(0, transform.localScale.y / 2, 0);
-    shot.SetActive(true);
+    if (shotPool != null) {
+      shot = shotPool.PopObject();
+      shot.transform.position = transform.position + transform.up;
+      shot.SetActive(true);
+      shot.GetComponent<Rigidbody2D>().velocity = transform.transform.up * shotSpeed;
+    }
   }
 
   #endregion

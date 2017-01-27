@@ -7,65 +7,50 @@ public class Pooler : Singleton<Pooler> {
 
   #region Fields
 
-  private Dictionary<string, GameObjectPool> pools = new Dictionary<string, GameObjectPool>();
-  private Dictionary<string, GameObjectArrayPool> arrayPools = new Dictionary<string, GameObjectArrayPool>();
+  private Dictionary<string, IPool> pools = new Dictionary<string, IPool>();
 
   #endregion
 
-  #region Game Object Pool Behaviour
+  #region Public Behaviour
 
+  // One prefab pools
   public static GameObjectPool CreateGameObjectPool(GameObject prefab, int initialObjectAmount, Transform parent) {
     return CreateGameObjectPool(prefab.name + "Pool", prefab, initialObjectAmount, parent);
   }
 
   public static GameObjectPool CreateGameObjectPool(string poolName, GameObject prefab, int initialObjectAmount, Transform parent) {
-    GameObjectPool gameObjectPool = GetPoolByName(poolName);
-    if(gameObjectPool != null)
-      return gameObjectPool;
-
-    gameObjectPool = new GameObjectPool(poolName, prefab, initialObjectAmount, parent);
-    Instance.pools.Add(poolName, gameObjectPool);
+    GameObjectPool gameObjectPool = new GameObjectPool(poolName, prefab, initialObjectAmount, parent);
+    AddPool<GameObjectPool>(poolName, gameObjectPool);
        
     return gameObjectPool;
   }
 
-  public static GameObjectPool GetPoolByName(string poolName) {
-    if (!Instance.pools.ContainsKey(poolName))
-      return null;
-    return Instance.pools[poolName];
+  // N prefabs pools
+  public static GameObjectArrayPool CreateGameObjectPool(GameObject[] prefabs, int initialObjectAmount, Transform parent) {
+    return CreateGameObjectPool(prefabs[0].name + "Pool", prefabs, initialObjectAmount, parent);
   }
 
-  #endregion
-
-  #region Game Object Array Pool Behaviour
-
-  public static GameObjectArrayPool CreateGameObjectArrayPool(GameObject[] prefabs, int initialObjectAmount, Transform parent) {
-    return CreateGameObjectArrayPool(prefabs[0].name + "Pool", prefabs, initialObjectAmount, parent);
-  }
-
-  public static GameObjectArrayPool CreateGameObjectArrayPool(string poolName, GameObject[] prefabs, int initialObjectAmount, Transform parent) {
-    GameObjectArrayPool gameObjectArrayPool = GetArrayPoolByName(poolName);
-    if(gameObjectArrayPool != null)
-      return gameObjectArrayPool;
-
-    gameObjectArrayPool = new GameObjectArrayPool(poolName, prefabs, initialObjectAmount, parent);
-    Instance.arrayPools.Add(poolName, gameObjectArrayPool);
+  public static GameObjectArrayPool CreateGameObjectPool(string poolName, GameObject[] prefabs, int initialObjectAmount, Transform parent) {
+    GameObjectArrayPool gameObjectArrayPool = new GameObjectArrayPool(poolName, prefabs, initialObjectAmount, parent);
+    AddPool<GameObjectArrayPool>(poolName, gameObjectArrayPool);
 
     return gameObjectArrayPool;
   }
 
-  public static GameObjectArrayPool GetArrayPoolByName(string arrayPoolName) {
-    if (!Instance.arrayPools.ContainsKey(arrayPoolName))
-      return null;
-    return Instance.arrayPools[arrayPoolName];
+  public static void AddPool<T>(string poolName, T pool) where T : IPool {
+    Instance.pools.Add(poolName, pool);
   }
 
-  #endregion
+  public static T GetPool<T>(string poolName) where T : IPool {
+    if (!Instance.pools.ContainsKey(poolName))
+      return default(T);
 
-  #region Public Object Behaviour
-
+    return (T) Instance.pools[poolName];
+  }
+ 
   public static GameObject CreatePoolGameObject(GameObject prefab, Transform parent) {
     GameObject obj = Instantiate(prefab, parent) as GameObject;
+
     return obj;
   }
 

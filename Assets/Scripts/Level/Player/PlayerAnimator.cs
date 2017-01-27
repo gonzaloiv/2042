@@ -8,7 +8,7 @@ public class PlayerAnimator : MonoBehaviour {
   #region Fields
 
   private Animator animator;
-  private ParticleSystem particleSystem;
+  private ParticleSystem shootingParticleSystem;
 
   #endregion
 
@@ -16,7 +16,7 @@ public class PlayerAnimator : MonoBehaviour {
 
   void Awake() {
     animator = GetComponent<Animator>();
-    particleSystem = GetComponentInChildren<ParticleSystem>();
+    shootingParticleSystem = GetComponentInChildren<ParticleSystem>();
   }
 
   void OnEnable() {
@@ -51,7 +51,7 @@ public class PlayerAnimator : MonoBehaviour {
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {
-    particleSystem.Play();
+    shootingParticleSystem.Play();
   }
 
   #endregion

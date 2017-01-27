@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(UFOWeapon))]
+[RequireComponent(typeof(Animator))]
 public class UFO : ShooterBehaviour {
 
   #region Mono Behaviour
 
   [SerializeField] private Transform player;
   private UFOWeapon weapon;
+  private Animator anim;
 
   #endregion
 
   #region Mono Behaviour
 
   void Awake() {
-    weapon = GetComponent<UFOWeapon>();
     player = GameObject.FindGameObjectWithTag("Player").transform;
+    weapon = GetComponent<UFOWeapon>();
+    anim = GetComponent<Animator>();
   }
 
   void OnEnable() {
@@ -25,12 +28,11 @@ public class UFO : ShooterBehaviour {
 
   void Update() {
     FocusOnPlayer();
-    Debug.DrawLine(transform.position, player.position, Color.red);
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
     if (collision2D.gameObject.name.Contains("Player"))
-      Disable();
+       Disable();
   }
 
   #endregion
@@ -45,7 +47,7 @@ public class UFO : ShooterBehaviour {
   }
 
   private IEnumerator ShootingCoroutine() {
-    while (gameObject.activeInHierarchy) {
+    while (true) {
       weapon.Shoot();
       yield return new WaitForSeconds(.6f);
     }
