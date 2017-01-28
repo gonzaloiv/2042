@@ -1,0 +1,30 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Weapon : MonoBehaviour {
+
+  #region Fields
+
+  protected GameObjectPool shotPool;
+  protected GameObject shot;
+
+  protected float shotSpeed = Config.BasicShotSpeed;
+
+  #endregion
+
+  #region Mono Behaviour
+
+  void Awake() {
+    shotPool = Pooler.GetPool<GameObjectPool>("ShotPool");
+  }
+
+  #endregion
+ 
+  #region Public Behaviour
+
+  public virtual void Shoot() {}
+
+  #endregion
+
+}

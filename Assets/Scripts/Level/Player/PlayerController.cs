@@ -5,12 +5,12 @@ using System.Collections.Generic;
 // Would be cool to have a CharacterController2D...
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-[RequireComponent(typeof(PlayerWeapon))]
+[RequireComponent(typeof(Weapon))]
 public class PlayerController : MonoBehaviour {
 
   #region Fields
 
-  private PlayerWeapon weapon;
+  private BottomUpWeapon weapon;
   private float playerBaseSpeed = Config.PlayerControllerSpeed;
 
   private float fireRate = Config.PlayerWeaponFireRate;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
-    weapon = GetComponent<PlayerWeapon>();
+    weapon = GetComponent<BottomUpWeapon>();
   }
 
   void OnEnable() {

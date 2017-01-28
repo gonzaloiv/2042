@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(UFOWeapon))]
+//[RequireComponent(typeof(Weapon))]
 [RequireComponent(typeof(Animator))]
-public class UFO : ShooterBehaviour {
+public class UFO : Enemy {
 
   #region Mono Behaviour
 
-  [SerializeField] private Transform player;
-  private UFOWeapon weapon;
-  private Animator anim;
+  [SerializeField] private Transform target;
+  private Weapon weapon;
 
   #endregion
 
   #region Mono Behaviour
 
-  void Awake() {
-    player = GameObject.FindGameObjectWithTag("Player").transform;
-    weapon = GetComponent<UFOWeapon>();
-    anim = GetComponent<Animator>();
+  protected override void Awake() {
+    base.Awake();
+
+    weapon = GetComponent<Weapon>();
+    target = GameObject.FindGameObjectWithTag("Player").transform;
   }
 
   void OnEnable() {
@@ -30,19 +30,15 @@ public class UFO : ShooterBehaviour {
     FocusOnPlayer();
   }
 
-  void OnCollisionEnter2D(Collision2D collision2D) {
-    if (collision2D.gameObject.name.Contains("Player"))
-       Disable();
-  }
-
   #endregion
 
   #region Private Behaviour
 
   private void FocusOnPlayer() {
-    Vector3 dir = player.position - transform.position;
+    Vector3 dir = target.position - transform.position;
     float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-    Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+    // The angle focus transform.up on the direction of the target
+    Quaternion q = Quaternion.AngleAxis(angle + -90, Vector3.forward);
     transform.rotation = Quaternion.Slerp(transform.rotation, q, 100);
   }
 

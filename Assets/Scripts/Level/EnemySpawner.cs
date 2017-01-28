@@ -51,7 +51,7 @@ public class EnemySpawner : MonoBehaviour {
         enemy.transform.position = new Vector3(Random.Range(-7, 7), 6, 0);
         enemy.SetActive(true);
       }
-      yield return new WaitForSeconds(.9f);
+      yield return new WaitForSeconds(3f);
     }
   }
 

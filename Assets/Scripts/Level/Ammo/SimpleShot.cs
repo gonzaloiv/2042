@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Animator))]
-public class UFOShot : ShooterBehaviour {
+public class SimpleShot : ShooterBehaviour {
 
   #region Fields 
 
@@ -26,7 +26,7 @@ public class UFOShot : ShooterBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-      Disable();
+    Disable();
   }
 
   #endregion
