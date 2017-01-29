@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[RequireComponent(typeof(Weapon))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(CircleCollider2D))]
 public class UFO : Enemy {
 
   #region Mono Behaviour
 
-  [SerializeField] private Transform target;
+  private Transform target;
   private Weapon weapon;
 
   #endregion
@@ -20,6 +20,8 @@ public class UFO : Enemy {
 
     weapon = GetComponent<Weapon>();
     target = GameObject.FindGameObjectWithTag("Player").transform;
+
+    score = (int) EnemyScore.UFO;
   }
 
   void OnEnable() {

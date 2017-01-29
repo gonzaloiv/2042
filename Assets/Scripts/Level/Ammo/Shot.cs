@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Animator))]
-public class SimpleShot : ShooterBehaviour {
+public class Shot : ShooterBehaviour {
 
   #region Fields 
 
@@ -17,6 +17,7 @@ public class SimpleShot : ShooterBehaviour {
 
   void Awake() {
     anim = GetComponent<Animator>();
+
   }
 
   void OnEnable() {
@@ -24,7 +25,8 @@ public class SimpleShot : ShooterBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    Disable();
+    if(collision2D.gameObject != gameObject)
+      Disable();
   }
 
   #endregion

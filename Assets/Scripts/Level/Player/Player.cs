@@ -6,8 +6,8 @@ public class Player : MonoBehaviour {
 
   #region Fields
 
-  private int lives;
-  private int score;
+  private int lives = Config.InitialLivesAmount;
+  private int score = Config.InitialScore;
 
   #endregion
 
@@ -15,10 +15,12 @@ public class Player : MonoBehaviour {
 
   void OnEnable() {
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
+    EventManager.StartListening<EnemyHitEvent>(OnEnemyHitEvent);
   }
 
   void OnDisable() {
     EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
+    EventManager.StopListening<EnemyHitEvent>(OnEnemyHitEvent);
   }
 
   #endregion
@@ -27,6 +29,13 @@ public class Player : MonoBehaviour {
 
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
     lives--;
+    if(lives == 0)
+      EventManager.TriggerEvent(new PlayerDeadEvent());   
+  }
+
+  void OnEnemyHitEvent(EnemyHitEvent enemyHitEvent) {
+    score += enemyHitEvent.enemyScore;
+    Debug.Log("Score: " + score);
   }
 
   #endregion

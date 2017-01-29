@@ -18,6 +18,7 @@ public class Config {
 
   // Player model
   public const int InitialLivesAmount = 3;
+  public const int InitialScore = 0;
 	
 }
 
@@ -32,4 +33,10 @@ public enum EnemyType {
   Meteor,
   UFO,
   None
+}
+
+public enum EnemyScore {
+  Meteor = 5,
+  UFO = 10,
+  None = 0
 }

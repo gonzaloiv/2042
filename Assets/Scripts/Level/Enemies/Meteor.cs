@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(Animator))]
 public class Meteor : Enemy {
 
   #region Fields
@@ -18,6 +17,7 @@ public class Meteor : Enemy {
     base.Awake();
 
     rotation = new Vector3(0, 0, Random.Range(0, 2));
+    score = (int) EnemyScore.Meteor;
   }
 
   void Update() {
