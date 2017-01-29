@@ -29,14 +29,15 @@ public class Player : MonoBehaviour {
 
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
     lives--;
+    EventManager.TriggerEvent(new LivesUIEvent(lives));
     if(lives == 0)
       EventManager.TriggerEvent(new PlayerDeadEvent());   
   }
 
   void OnEnemyHitEvent(EnemyHitEvent enemyHitEvent) {
     score += enemyHitEvent.enemyScore;
-    Debug.Log("Score: " + score);
-  }
+    EventManager.TriggerEvent(new ScoreUIEvent(score)); 
+   }
 
   #endregion
 

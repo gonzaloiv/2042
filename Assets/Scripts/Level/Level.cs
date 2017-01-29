@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
+public class Level : MonoBehaviour {
 
   #region Fields
 
   [SerializeField] private GameObject[] meteorPrefabs;
   [SerializeField] private GameObject[] ufoPrefabs;
+  [SerializeField] private GameObject hudPrefab;
 
   private List<GameObjectArrayPool> enemyPools;
 
@@ -31,6 +32,8 @@ public class EnemySpawner : MonoBehaviour {
  
     enemyPools.Add(PoolManager.CreateGameObjectPool("MeteorPool", meteorPrefabs, 20, levelEnemies));
     enemyPools.Add(PoolManager.CreateGameObjectPool("UFOPool", ufoPrefabs, 10, levelEnemies));
+
+    Instantiate(hudPrefab, transform);
   }
 
   void Start() {
@@ -49,7 +52,7 @@ public class EnemySpawner : MonoBehaviour {
   private IEnumerator SpawningRoutine(GameData.Level level) {
     for (int i = 0; i < level.waves.Length; i++) {
       SpawnEnemies(level.waves[i]);
-      yield return new WaitForSeconds(3);
+      yield return new WaitForSeconds(1);
     }
     // Infinite loop for testing
     StopCoroutine(SpawningRoutine(level));

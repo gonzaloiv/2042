@@ -29,3 +29,22 @@ public class PlayerDeadEvent : UnityEvent {
 }
 
 #endregion
+
+#region UI Events
+
+public class LivesUIEvent : UnityEvent {
+  public int lives;
+  public LivesUIEvent(int lives) {
+    this.lives = lives;
+  }
+}
+
+public class ScoreUIEvent : UnityEvent {
+  public int score;
+  public ScoreUIEvent(int score) {
+    this.score = score;
+  }
+}
+
+#endregion
+
