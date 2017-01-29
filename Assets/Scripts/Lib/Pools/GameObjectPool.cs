@@ -35,7 +35,7 @@ public class GameObjectPool : IPool {
   }
 
   public GameObject PushObject() {
-    GameObject obj = Pooler.CreatePoolGameObject(prefab, poolGameObject.transform);
+    GameObject obj = PoolManager.CreatePoolGameObject(prefab, poolGameObject.transform);
     obj.SetActive(false);
     objects.Add(obj);
 

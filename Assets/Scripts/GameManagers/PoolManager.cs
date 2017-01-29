@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Based on TheLiquidFire's: https://theliquidfire.wordpress.com/2015/07/06/object-pooling/
-public class Pooler : Singleton<Pooler> {
+public class PoolManager : Singleton<PoolManager> {
 
   #region Fields
 

@@ -19,7 +19,7 @@ public class Game : MonoBehaviour {
     Physics2D.gravity = Config.GlobalGravity;
     Application.targetFrameRate = 60;
 
-    Pooler.CreateGameObjectPool("ShotPool", shotPrefab, 30, transform);
+    PoolManager.CreateGameObjectPool("ShotPool", shotPrefab, 30, transform);
 
     Instantiate(playerPrefab, transform);
     Instantiate(backgroundPrefab, transform);

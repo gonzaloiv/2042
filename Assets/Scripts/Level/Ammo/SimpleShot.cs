@@ -9,7 +9,6 @@ public class SimpleShot : ShooterBehaviour {
 
   #region Fields 
 
-  private Rigidbody2D rb;
   private Animator anim;
 
   #endregion
@@ -17,7 +16,6 @@ public class SimpleShot : ShooterBehaviour {
   #region Mono Behaviour
 
   void Awake() {
-    rb = GetComponent<Rigidbody2D>();
     anim = GetComponent<Animator>();
   }
 
