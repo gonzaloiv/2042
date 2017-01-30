@@ -7,16 +7,24 @@ public class InputManager : MonoBehaviour {
   #region Mono Behaviour
 
   void Update() {
-    if (Input.GetKey("space"))
-      EventManager.TriggerEvent(new PlayerShotInput());
-    if (Input.GetKey("right"))
-      EventManager.TriggerEvent(new MoveRightInput());
-    if (Input.GetKey("left"))
-      EventManager.TriggerEvent(new MoveLeftInput());
-    if (Input.GetKey("down"))
-      EventManager.TriggerEvent(new MoveDownInput());
-    if (Input.GetKey("up"))
-      EventManager.TriggerEvent(new MoveUpInput());
+
+    // PLAYER INPUT
+    if (Time.timeScale != 0) {
+      if (Input.GetKey(KeyCode.UpArrow))
+        EventManager.TriggerEvent(new MoveUpInput());
+      if (Input.GetKey(KeyCode.RightArrow))
+        EventManager.TriggerEvent(new MoveRightInput());
+      if (Input.GetKey(KeyCode.DownArrow))
+        EventManager.TriggerEvent(new MoveDownInput());
+      if (Input.GetKey(KeyCode.LeftArrow))
+        EventManager.TriggerEvent(new MoveLeftInput());
+      if (Input.GetKey(KeyCode.Space))
+        EventManager.TriggerEvent(new PlayerShotInput());
+    }
+
+    // LEVEL INPUT
+    if (Input.GetKeyDown(KeyCode.Escape))
+      EventManager.TriggerEvent(new PauseLevelInput());
   }
 
   #endregion

@@ -6,6 +6,9 @@ public class Config {
   public static Vector3 GlobalGravity = new Vector3(0f, -2.7f, 0f);
   public const float BackgroundScrollingSpeed = .04f;
   public static float[] PlayerConstraints = { 4, 7, -3, -7 };
+  public const int TimeScale = 1;
+
+  // Data
   public const string GameDataPath = "GameData";
 
   // Level

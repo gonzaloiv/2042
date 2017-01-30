@@ -10,26 +10,24 @@ public class UFO : StateMachine {
   #region Mono Behaviour
 
   void Awake() {
-    GetComponent<Enemy>().Score = (int) EnemyScore.UFO;
+    GetComponent<Enemy>().SetScore((int) EnemyScore.UFO);
   }
 
   void OnEnable() {
-    ChangeState<ShootingState>();
+    ChangeState<IdleState>();
     StartCoroutine(UFOBehaviourRoutine());
   }
 
   #endregion
 
-  #region Private behaviour
+  #region Private Behaviour
 
   private IEnumerator UFOBehaviourRoutine() {
     while (gameObject.activeInHierarchy) {
-      if (CurrentState is IdleState) {
-        ChangeState<ShootingState>();
-      } else {
-        ChangeState<IdleState>();
-      }
-      yield return new WaitForSeconds(2);
+      ChangeState<IdleState>();
+      yield return new WaitForSeconds(Random.Range(.7f, 1.6f));
+      ChangeState<ShootState>();
+      yield return new WaitForSeconds(Random.Range(.3f, .4f));
     }
   }
 

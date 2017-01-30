@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingState : State {
+public class ShootState : State {
 
   #region Mono Behaviour
 
   private Transform target;
   private Weapon weapon;
+
+  private IEnumerator shootingCoroutine;
 
   #endregion
 
@@ -15,6 +17,7 @@ public class ShootingState : State {
 
   void Awake() {
     weapon = GetComponent<Weapon>();
+    shootingCoroutine = ShootingCoroutine();
   }
 
   void Update() {
@@ -31,14 +34,14 @@ public class ShootingState : State {
     // TODO: corregir dependencia entre los enemigos y el jugador
     if(!target)
       target = transform.root.GetComponentInChildren<Player>().transform;
-    
-    StartCoroutine(ShootingCoroutine());
+
+    StartCoroutine(shootingCoroutine);
   }
 
   public override void Exit() {
     base.Exit();
 
-    StopCoroutine(ShootingCoroutine());
+    StopCoroutine(shootingCoroutine);
   }
 
   #endregion
@@ -48,7 +51,7 @@ public class ShootingState : State {
   private IEnumerator ShootingCoroutine() {
     while (true) {
       weapon.Shoot();
-      yield return new WaitForSeconds(.5f);
+      yield return new WaitForSeconds(.15f);
     }
   }
 

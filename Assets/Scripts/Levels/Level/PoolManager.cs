@@ -14,20 +14,25 @@ public class PoolManager : Pooler {
 
   private Transform levelEnemies;
   private List<GameObjectArrayPool> enemyPools;
-  private GameObjectPool shotPool;
 
   #endregion
 
-  public void InitializePools() {
+  #region Public Behaviour
+
+  public void InitializeShotPool() {
+    CreateGameObjectPool("ShotPool", shotPrefab, 30, transform);
+  }
+
+  public void InitializeEnemyPools() {
     enemyPools = new List<GameObjectArrayPool>();
 
     levelEnemies = new GameObject("LevelEnemies").transform;
     levelEnemies.SetParent(transform);
 
-    CreateGameObjectPool("ShotPool", shotPrefab, 30, transform);
-
     enemyPools.Add(CreateGameObjectPool("MeteorPool", meteorPrefabs, 20, levelEnemies));
     enemyPools.Add(CreateGameObjectPool("UFOPool", ufoPrefabs, 10, levelEnemies));
   }
+
+  #endregion
 
 }

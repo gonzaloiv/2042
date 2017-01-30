@@ -7,10 +7,8 @@ public class Enemy : ShooterBehaviour {
 
   #region Mono Behaviour
 
-  public int Score { get { return score; } set { value = score; } }
-
   private Animator anim;
-  private int score = 0;
+  private int score;
 
   #endregion
 
@@ -23,6 +21,14 @@ public class Enemy : ShooterBehaviour {
   protected virtual void OnCollisionEnter2D(Collision2D collision2D) {
     EventManager.TriggerEvent(new EnemyHitEvent(score));
     anim.Play("Die");
+  }
+
+  #endregion
+
+  #region Mono Behaviour
+
+  public void SetScore(int score) {
+    this.score = score;
   }
 
   #endregion

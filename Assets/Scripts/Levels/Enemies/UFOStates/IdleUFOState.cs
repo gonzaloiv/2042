@@ -14,12 +14,10 @@ public class IdleState : State {
 
   void Awake() {
     rotation = new Vector3(0, 0, Random.Range(0, 2));
-
-    GetComponent<Enemy>().Score = (int) EnemyScore.Meteor;
   }
 
   void Update() {
-    transform.Rotate(rotation);
+    transform.Rotate(rotation  * Time.timeScale);
   }
 
   #endregion

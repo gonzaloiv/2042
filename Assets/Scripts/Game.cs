@@ -17,7 +17,6 @@ public class Game : MonoBehaviour {
     Physics2D.gravity = Config.GlobalGravity;
     Application.targetFrameRate = 60;
 
-
     Instantiate(backgroundPrefab, transform);
     Instantiate(levelPrefab, transform);
   }

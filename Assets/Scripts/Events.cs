@@ -8,12 +8,14 @@ public class MoveLeftInput : UnityEvent {}
 public class MoveDownInput : UnityEvent {}
 public class MoveUpInput : UnityEvent {}
 public class PlayerShotInput : UnityEvent {}
+public class PauseLevelInput : UnityEvent {}
 
 #endregion
 
-#region Level Mechanics Events
+#region Game Mechanics Events
 
 public class PlayerHitEvent : UnityEvent {}
+public class PlayerDeadEvent : UnityEvent {}
 
 public class EnemyHitEvent : UnityEvent {
   public int enemyScore;
@@ -22,11 +24,12 @@ public class EnemyHitEvent : UnityEvent {
   }
 }
 
-public class PlayerDeadEvent : UnityEvent {
-  public PlayerDeadEvent () {
-    Debug.Log("This player is deadly dead...");
-  }
-}
+#endregion
+
+#region Level Events
+
+public class EndLevelEvent : UnityEvent {}
+public class RestartGameEvent :UnityEvent {}
 
 #endregion
 

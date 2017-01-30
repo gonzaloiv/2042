@@ -4,7 +4,7 @@ using System;
 namespace GameData {
 
   [Serializable]
-  public struct Levels {
+  public struct Game {
 
     public Level[] levels;
 

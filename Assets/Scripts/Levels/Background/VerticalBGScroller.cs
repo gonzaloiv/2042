@@ -34,7 +34,7 @@ public class VerticalBGScroller : MonoBehaviour {
 
   private IEnumerator ScrollingRoutine() {
     while (gameObject.activeInHierarchy) {
-      transform.Translate(scrollingVelocity);
+      transform.Translate(scrollingVelocity * Time.deltaTime);
       SpriteRenderer firstChild = spriteRenderers[0];
       if (firstChild.transform.position.y < -spritesYSize) {
         firstChild.transform.position = (Vector2) spriteRenderers.Last().transform.position + new Vector2(0, spritesYSize);
