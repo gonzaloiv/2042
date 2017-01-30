@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class Meteor : Enemy {
+public class IdleState : State {
 
   #region Fields
 
@@ -13,11 +12,10 @@ public class Meteor : Enemy {
 
   #region Mono Behaviour
 
-  protected override void Awake() {
-    base.Awake();
-
+  void Awake() {
     rotation = new Vector3(0, 0, Random.Range(0, 2));
-    score = (int) EnemyScore.Meteor;
+
+    GetComponent<Enemy>().Score = (int) EnemyScore.Meteor;
   }
 
   void Update() {
@@ -25,5 +23,5 @@ public class Meteor : Enemy {
   }
 
   #endregion
-
+ 
 }

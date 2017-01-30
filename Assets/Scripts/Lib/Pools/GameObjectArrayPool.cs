@@ -51,7 +51,7 @@ public class GameObjectArrayPool : IPool {
   }
 
   public GameObject PushObject(int index, GameObject prefab) {
-    GameObject obj = PoolManager.CreatePoolGameObject(prefab, pool.transform);
+    GameObject obj = Pooler.CreatePoolGameObject(prefab, pool.transform);
     obj.SetActive(false);
     objects.Add(new KeyValuePair<int, GameObject>(index, obj));
 

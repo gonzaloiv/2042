@@ -41,8 +41,7 @@ public class PlayerController : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if (!collision2D.gameObject.name.Contains("PlayerShot"))
-      EventManager.TriggerEvent(new PlayerHitEvent());
+    EventManager.TriggerEvent(new PlayerHitEvent());
   }
 
   #endregion

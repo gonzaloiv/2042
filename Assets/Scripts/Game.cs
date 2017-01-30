@@ -6,10 +6,8 @@ public class Game : MonoBehaviour {
 
   #region Fields
 
-  [SerializeField] private GameObject playerPrefab;
   [SerializeField] private GameObject backgroundPrefab;
   [SerializeField] private GameObject levelPrefab;
-  [SerializeField] private GameObject shotPrefab;
 
   #endregion
 
@@ -19,9 +17,7 @@ public class Game : MonoBehaviour {
     Physics2D.gravity = Config.GlobalGravity;
     Application.targetFrameRate = 60;
 
-    PoolManager.CreateGameObjectPool("ShotPool", shotPrefab, 30, transform);
 
-    Instantiate(playerPrefab, transform);
     Instantiate(backgroundPrefab, transform);
     Instantiate(levelPrefab, transform);
   }

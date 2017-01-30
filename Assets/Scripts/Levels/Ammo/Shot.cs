@@ -17,7 +17,6 @@ public class Shot : ShooterBehaviour {
 
   void Awake() {
     anim = GetComponent<Animator>();
-
   }
 
   void OnEnable() {

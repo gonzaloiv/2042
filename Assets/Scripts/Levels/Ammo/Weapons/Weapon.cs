@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
-    shotPool = PoolManager.GetPool<GameObjectPool>("ShotPool");
+    shotPool = Pooler.GetPool<GameObjectPool>("ShotPool");
   }
 
   #endregion

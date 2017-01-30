@@ -12,7 +12,7 @@ public class BottomUpWeapon : Weapon {
       shot.transform.position = transform.position + transform.up;
       shot.transform.rotation = Quaternion.identity;
       shot.SetActive(true);
-      shot.GetComponent<Rigidbody2D>().velocity = Vector2.up * shotSpeed;
+      shot.GetComponent<Rigidbody2D>().velocity = Vector2.up * shotSpeed * (Time.timeScale / 1f);
     }
   }
 

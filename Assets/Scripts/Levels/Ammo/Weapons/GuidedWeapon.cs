@@ -15,7 +15,7 @@ public class GuidedWeapon : Weapon {
       shot.transform.position = transform.position + transform.up;
       shot.transform.rotation = transform.rotation;
       shot.SetActive(true);
-      shot.GetComponent<Rigidbody2D>().velocity = shot.transform.up * shotSpeed;
+      shot.GetComponent<Rigidbody2D>().velocity = shot.transform.up * shotSpeed * (Time.timeScale / 1f);
     }
   }
 

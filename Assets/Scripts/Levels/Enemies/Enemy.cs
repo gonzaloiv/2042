@@ -7,8 +7,10 @@ public class Enemy : ShooterBehaviour {
 
   #region Mono Behaviour
 
-  protected Animator anim;
-  protected int score;
+  public int Score { get { return score; } set { value = score; } }
+
+  private Animator anim;
+  private int score = 0;
 
   #endregion
 

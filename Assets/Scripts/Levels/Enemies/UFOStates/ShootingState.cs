@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Weapon))]
-[RequireComponent(typeof(CircleCollider2D))]
-public class UFO : Enemy {
+public class ShootingState : State {
 
   #region Mono Behaviour
 
@@ -15,17 +13,8 @@ public class UFO : Enemy {
 
   #region Mono Behaviour
 
-  protected override void Awake() {
-    base.Awake();
-
+  void Awake() {
     weapon = GetComponent<Weapon>();
-    target = GameObject.FindGameObjectWithTag("Player").transform;
-
-    score = (int) EnemyScore.UFO;
-  }
-
-  void OnEnable() {
-    StartCoroutine(ShootingCoroutine());
   }
 
   void Update() {
@@ -34,7 +23,34 @@ public class UFO : Enemy {
 
   #endregion
 
+  #region State Behaviour
+
+  public override void Enter() {
+    base.Enter();
+
+    // TODO: corregir dependencia entre los enemigos y el jugador
+    if(!target)
+      target = transform.root.GetComponentInChildren<Player>().transform;
+    
+    StartCoroutine(ShootingCoroutine());
+  }
+
+  public override void Exit() {
+    base.Exit();
+
+    StopCoroutine(ShootingCoroutine());
+  }
+
+  #endregion
+
   #region Private Behaviour
+
+  private IEnumerator ShootingCoroutine() {
+    while (true) {
+      weapon.Shoot();
+      yield return new WaitForSeconds(.5f);
+    }
+  }
 
   private void FocusOnPlayer() {
     Vector3 dir = target.position - transform.position;
@@ -43,14 +59,8 @@ public class UFO : Enemy {
     Quaternion q = Quaternion.AngleAxis(angle + -90, Vector3.forward);
     transform.rotation = Quaternion.Slerp(transform.rotation, q, 100);
   }
-
-  private IEnumerator ShootingCoroutine() {
-    while (true) {
-      weapon.Shoot();
-      yield return new WaitForSeconds(.6f);
-    }
-  }
  
   #endregion
+
 
 }
