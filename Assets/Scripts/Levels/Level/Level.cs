@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PoolManager))]
+[RequireComponent(typeof(LoadLevelState))]
+[RequireComponent(typeof(PlayLevelState))]
+[RequireComponent(typeof(RestartLevelState))]
+
 public class Level : StateMachine {
 
   #region Fields
@@ -24,14 +29,14 @@ public class Level : StateMachine {
   }
 
   void OnEnable() {
-    EventManager.StartListening<PlayerDeadEvent>(OnPlayerDeadEvent);
+    EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
     EventManager.StartListening<EndLevelEvent>(OnEndLevelEvent);
     EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
     StartCoroutine(levelRoutine);
   }
 
   void OnDisable() {
-    EventManager.StopListening<PlayerDeadEvent>(OnPlayerDeadEvent);
+    EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
     EventManager.StopListening<EndLevelEvent>(OnEndLevelEvent);
     EventManager.StopListening<RestartGameEvent>(OnRestartGameEvent);
     StopCoroutine(levelRoutine);
@@ -41,7 +46,7 @@ public class Level : StateMachine {
 
   #region Events Behaviour
 
-  void OnPlayerDeadEvent(PlayerDeadEvent playerDeadEvent) {
+  void OnGameOverEvent(GameOverEvent gameOverEvent) {
     ChangeState<RestartLevelState>();
   }
 
@@ -55,6 +60,7 @@ public class Level : StateMachine {
     currentLevel = 1;
     levelRoutine = LevelRoutine();
     StartCoroutine(levelRoutine);
+    EventManager.TriggerEvent(new StartGameEvent());
   }
 
   #endregion

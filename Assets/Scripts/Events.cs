@@ -15,8 +15,7 @@ public class PauseLevelInput : UnityEvent {}
 #region Game Mechanics Events
 
 public class PlayerHitEvent : UnityEvent {}
-public class PlayerDeadEvent : UnityEvent {}
-
+public class GameOverEvent :UnityEvent {}
 public class EnemyHitEvent : UnityEvent {
   public int enemyScore;
   public EnemyHitEvent(int enemyScore) {
@@ -28,8 +27,9 @@ public class EnemyHitEvent : UnityEvent {
 
 #region Level Events
 
+public class StartGameEvent :UnityEvent {}
 public class EndLevelEvent : UnityEvent {}
-public class RestartGameEvent :UnityEvent {}
+public class RestartGameEvent : UnityEvent {}
 
 #endregion
 

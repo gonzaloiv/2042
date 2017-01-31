@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EventManager))]
+[RequireComponent(typeof(InputManager))]
+[RequireComponent(typeof(TimeManager))]
+
 public class Game : MonoBehaviour {
 
   #region Fields

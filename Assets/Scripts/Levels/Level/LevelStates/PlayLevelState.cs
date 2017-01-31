@@ -43,38 +43,45 @@ public class PlayLevelState : State {
     // For testing purposes:
     // levelData = level.GameData.levels[level.CurrentLevel];
     levelData = level.GameData.levels[0];
+   
+    if(!hud.activeInHierarchy) 
+      hud.SetActive(true);
 
-    hud.SetActive(true);
     spawningRoutine = SpawningRoutine(levelData);
     StartCoroutine(spawningRoutine);
   } 
 
   public override void Exit() {
     base.Exit();
-
-    hud.SetActive(false);
+   
     StopCoroutine(spawningRoutine);
   }
 
   protected override void AddListeners() {
     EventManager.StartListening<PauseLevelInput>(OnPauseLevelInput);
+    EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
   }
 
   protected override void RemoveListeners() {
     EventManager.StopListening<PauseLevelInput>(OnPauseLevelInput);
+    EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
   }
 
   #endregion
 
   #region Events Behaviour
   
-  private void OnPauseLevelInput(PauseLevelInput pauseLevelInput) {
+  void OnPauseLevelInput(PauseLevelInput pauseLevelInput) {
     Time.timeScale = Time.timeScale == 0 ? Config.TimeScale : 0;
     if (pauseScreen.activeInHierarchy) {
       pauseScreen.SetActive(false);
     } else {
       pauseScreen.SetActive(true);
     }
+  }
+
+  void OnGameOverEvent(GameOverEvent gameOverEvent) {
+    hud.SetActive(false);
   }
   
   #endregion
@@ -86,7 +93,7 @@ public class PlayLevelState : State {
       yield return new WaitForSeconds(1);
       SpawnEnemies(level.waves[i]);
     }
-    // TODO: el evento se debe lanzar en el momento en que desaparece el último enemigo
+    // TODO: el evento se debería lanzar en el momento en que desaparece el último enemigo
     yield return new WaitForSeconds(3);
     EventManager.TriggerEvent(new EndLevelEvent());
   }

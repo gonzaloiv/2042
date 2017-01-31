@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Enemy))]
+
 public class Meteor : MonoBehaviour {
 
   #region Fields

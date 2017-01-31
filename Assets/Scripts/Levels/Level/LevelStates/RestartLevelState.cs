@@ -26,13 +26,12 @@ public class RestartLevelState : State {
     base.Enter();
 
     restartScreen.SetActive(true);
-    Time.timeScale = 0;
   }
 
   public override void Exit() {
     base.Exit();
 
-    restartScreen.SetActive(false);
+    restartScreen.SetActive(false);  
   }
 
   protected override void AddListeners() {
@@ -42,13 +41,12 @@ public class RestartLevelState : State {
   protected override void RemoveListeners() {
     EventManager.StopListening<PauseLevelInput>(OnPauseLevelInput);
   }
- 
+
   #endregion
 
   #region Event Behaviour
 
   void OnPauseLevelInput(PauseLevelInput pauseLevelInput) {
-    Time.timeScale = Config.TimeScale;
     EventManager.TriggerEvent(new RestartGameEvent());
   }
 

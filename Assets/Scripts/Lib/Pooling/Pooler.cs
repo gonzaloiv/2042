@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Based on TheLiquidFire's: https://theliquidfire.wordpress.com/2015/07/06/object-pooling/
-public class Pooler : Singleton<Pooler> {
+public class Pooler : MonoBehaviour {
 
   #region Fields
 
-  private Dictionary<string, IPool> pools = new Dictionary<string, IPool>();
+  private static Dictionary<string, IPool> pools = new Dictionary<string, IPool>();
 
   #endregion
 
@@ -38,14 +38,14 @@ public class Pooler : Singleton<Pooler> {
   }
 
   public static void AddPool<T>(string poolName, T pool) where T : IPool {
-    Instance.pools.Add(poolName, pool);
+    pools.Add(poolName, pool);
   }
 
   public static T GetPool<T>(string poolName) where T : IPool {
-    if (!Instance.pools.ContainsKey(poolName))
+    if (!pools.ContainsKey(poolName))
       return default(T);
 
-    return (T) Instance.pools[poolName];
+    return (T) pools[poolName];
   }
  
   public static GameObject CreatePoolGameObject(GameObject prefab, Transform parent) {

@@ -2,17 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// Would be cool to have a CharacterController2D...
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Weapon))]
+
 public class PlayerController : MonoBehaviour {
 
   #region Fields
 
   private BottomUpWeapon weapon;
-  private float playerBaseSpeed = Config.PlayerControllerSpeed;
+  private CapsuleCollider2D cc;
 
+  private float playerBaseSpeed = Config.PlayerControllerSpeed;
   private float fireRate = Config.PlayerWeaponFireRate;
   private float nextFire;
 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
+    cc = GetComponent<CapsuleCollider2D>();
     weapon = GetComponent<BottomUpWeapon>();
   }
 
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour {
 
   void OnCollisionEnter2D(Collision2D collision2D) {
     EventManager.TriggerEvent(new PlayerHitEvent());
+    cc.enabled = false;
   }
 
   #endregion

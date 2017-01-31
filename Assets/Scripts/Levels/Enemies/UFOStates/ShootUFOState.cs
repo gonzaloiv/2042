@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootState : State {
+[RequireComponent(typeof(Weapon))]
+public class ShootUFOState : State {
 
   #region Mono Behaviour
 

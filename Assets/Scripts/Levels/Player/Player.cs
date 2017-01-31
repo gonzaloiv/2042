@@ -32,8 +32,8 @@ public class Player : MonoBehaviour {
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
     lives--;
     EventManager.TriggerEvent(new LivesUIEvent(lives));
-    if(lives == 0)
-      EventManager.TriggerEvent(new PlayerDeadEvent());   
+    if(lives <= 0)
+      EventManager.TriggerEvent(new GameOverEvent());   
   }
 
   void OnEnemyHitEvent(EnemyHitEvent enemyHitEvent) {
@@ -42,6 +42,14 @@ public class Player : MonoBehaviour {
    }
 
   void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
+    RestartPlayer();
+  }
+
+  #endregion
+
+  #region Private Behaviour
+
+  private void RestartPlayer() {
     lives = Config.InitialLivesAmount;
     EventManager.TriggerEvent(new LivesUIEvent(lives));
     score = Config.InitialScore;

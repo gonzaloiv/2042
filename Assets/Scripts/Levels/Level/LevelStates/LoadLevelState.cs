@@ -36,7 +36,7 @@ public class LoadLevelState : State {
 
     if(!loadScreen)
       InstantiateLoadScreen();
-
+     
     loadScreen.SetActive(true);
     loadScreenLabel.text = loadScreenInitialText + level.CurrentLevel;
   }

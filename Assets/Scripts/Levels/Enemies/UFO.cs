@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Weapon))]
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(IdleUFOState))]
+[RequireComponent(typeof(ShootUFOState))]
+
 public class UFO : StateMachine {
 
   #region Mono Behaviour
@@ -14,7 +17,7 @@ public class UFO : StateMachine {
   }
 
   void OnEnable() {
-    ChangeState<IdleState>();
+    ChangeState<IdleUFOState>();
     StartCoroutine(UFOBehaviourRoutine());
   }
 
@@ -24,9 +27,9 @@ public class UFO : StateMachine {
 
   private IEnumerator UFOBehaviourRoutine() {
     while (gameObject.activeInHierarchy) {
-      ChangeState<IdleState>();
+      ChangeState<IdleUFOState>();
       yield return new WaitForSeconds(Random.Range(.7f, 1.6f));
-      ChangeState<ShootState>();
+      ChangeState<ShootUFOState>();
       yield return new WaitForSeconds(Random.Range(.3f, .4f));
     }
   }

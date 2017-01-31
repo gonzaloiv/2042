@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+
 public class Weapon : MonoBehaviour {
 
   #region Fields
@@ -17,7 +18,7 @@ public class Weapon : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
-    shotPool = Pooler.GetPool<GameObjectPool>("ShotPool");
+    shotPool = PoolManager.GetPool<GameObjectPool>("ShotPool");
   }
 
   #endregion

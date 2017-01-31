@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+
 public class PlayerAnimator : MonoBehaviour {
 
   #region Fields
@@ -24,6 +25,7 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
+    EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
   }
 
   void OnDisable() {
@@ -31,6 +33,8 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
+    EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
+
   }
 
   #endregion
@@ -46,12 +50,16 @@ public class PlayerAnimator : MonoBehaviour {
   }
 
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
-    transform.position = Config.PlayerSpawningPosition;
     animator.Play("Respawn");
+    transform.position = Config.PlayerSpawningPosition;
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {
     shootingParticleSystem.Play();
+  }
+
+  void OnGameOverEvent(GameOverEvent gameOverEvent) {
+    animator.Play("Die");
   }
 
   #endregion

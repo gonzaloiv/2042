@@ -11,17 +11,17 @@ public class HUD : MonoBehaviour {
   [SerializeField] private Text scoreLabel;
 
   private string initialLivesLabelText = "LIVES ";
-  private string initialScoreLabelText = "SCORE " ;
+  private string initialScoreLabelText = "SCORE ";
 
   #endregion
 
   #region Mono Behaviour
 
   void Awake() {
-    livesLabel.text = livesLabel.text + Config.InitialLivesAmount;
-    scoreLabel.text = scoreLabel.text + Config.InitialScore;
+    livesLabel.text = initialLivesLabelText + Config.InitialLivesAmount;
+    scoreLabel.text = initialScoreLabelText + Config.InitialScore;
   }
-   
+
   void OnEnable() {
     EventManager.StartListening<LivesUIEvent>(OnLivesUIEvent);
     EventManager.StartListening<ScoreUIEvent>(OnScoreUIEvent);
@@ -45,5 +45,5 @@ public class HUD : MonoBehaviour {
   }
 
   #endregion
-    	
+
 }
