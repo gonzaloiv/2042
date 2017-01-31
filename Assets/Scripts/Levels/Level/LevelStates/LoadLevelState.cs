@@ -28,7 +28,9 @@ public class LoadLevelState : State {
     // Orden de ejecución según dependencias...
     poolManager.InitializeShotPool();
     Instantiate(playerPrefab, transform);
+
     poolManager.InitializeEnemyPools();
+    poolManager.InitializePowerUpPool();
   }
 
   public override void Enter() {

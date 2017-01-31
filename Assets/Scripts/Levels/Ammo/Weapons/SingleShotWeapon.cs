@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuidedWeapon : Weapon {
+public class SingleShotWeapon : Weapon {
 
   #region Public Behaviour
 

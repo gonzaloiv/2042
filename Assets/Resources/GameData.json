@@ -8,6 +8,12 @@
               "type": 0,
               "amount": 3
             }
+          ],
+          "powerUps": [
+             {
+              "type": 0,
+              "amount": 1
+            }
           ]
         },
         {
@@ -17,6 +23,12 @@
               "amount": 3
             },
             {
+              "type": 1,
+              "amount": 1
+            }
+          ],
+          "powerUps": [
+             {
               "type": 1,
               "amount": 1
             }
@@ -31,6 +43,12 @@
             {
               "type": 1,
               "amount": 3
+            }
+          ],
+          "powerUps": [
+             {
+              "type": 2,
+              "amount": 1
             }
           ]
         }

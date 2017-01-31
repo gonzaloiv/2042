@@ -21,6 +21,7 @@ namespace GameData {
   public struct Wave {
 
     public Enemy[] enemies;
+    public PowerUp[] powerUps;
 
   }
 
@@ -28,6 +29,15 @@ namespace GameData {
   public struct Enemy {
 
     public EnemyType type;
+    public int amount;
+    public int[] positions;
+
+  }
+
+  [Serializable]
+  public struct PowerUp {
+
+    public PowerUpType type;
     public int amount;
     public int[] positions;
 

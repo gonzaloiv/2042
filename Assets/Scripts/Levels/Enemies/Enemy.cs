@@ -26,7 +26,7 @@ public class Enemy : ShooterBehaviour {
 
   #endregion
 
-  #region Mono Behaviour
+  #region Public Behaviour
 
   public void SetScore(int score) {
     this.score = score;

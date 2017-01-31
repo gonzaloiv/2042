@@ -15,20 +15,11 @@ public class PlayerShotInput : UnityEvent {
   }
 }
 
-public class MouseInput : UnityEvent{
-  public Vector3 mousePosition;
-  public MouseInput(Vector3 mousePosition) {
-    this.mousePosition = mousePosition;
-  }
-}
-
 public class PauseLevelInput : UnityEvent {}
 
 #endregion
 
 #region Game Mechanics Events
-
-public class PlayerHitEvent : UnityEvent {}
 
 public class EnemyHitEvent : UnityEvent {
   public int enemyScore;

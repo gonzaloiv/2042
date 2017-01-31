@@ -57,10 +57,10 @@ public class Level : StateMachine {
   }
 
   private void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
+    EventManager.TriggerEvent(new StartGameEvent());
     currentLevel = 1;
     levelRoutine = LevelRoutine();
     StartCoroutine(levelRoutine);
-    EventManager.TriggerEvent(new StartGameEvent());
   }
 
   #endregion

@@ -92,6 +92,7 @@ public class PlayLevelState : State {
     for (int i = 0; i < level.waves.Length; i++) {
       yield return new WaitForSeconds(1);
       SpawnEnemies(level.waves[i]);
+      SpawnPowerUps(level.waves[i]);
     }
     // TODO: el evento se debería lanzar en el momento en que desaparece el último enemigo
     yield return new WaitForSeconds(3);
@@ -109,6 +110,19 @@ public class PlayLevelState : State {
       enemy.transform.position = new Vector3(Random.Range(-7, 7), 6, 0);
       enemy.SetActive(true);
     }
+  }
+
+  private void SpawnPowerUps(GameData.Wave wave) {
+    for (int i = 0; i < wave.powerUps.Length; i++)
+      SpawnPowerUp(wave.powerUps[i]);
+  }
+
+  private void SpawnPowerUp(GameData.PowerUp powerUpData) {
+//    if (Random.Range(1, 10) > 5) {
+      GameObject powerUp = poolManager.PowerUpPool.PopObject((int) powerUpData.type);
+      powerUp.transform.position = new Vector3(Random.Range(-7, 7), 6, 0);
+      powerUp.SetActive(true);
+//    }
   }
 
   #endregion

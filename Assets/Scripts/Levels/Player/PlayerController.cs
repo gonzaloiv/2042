@@ -4,26 +4,26 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-//[RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(SingleShotWeapon))]
+[RequireComponent(typeof(DoubleShotWeapon))]
 
 public class PlayerController : MonoBehaviour {
 
   #region Fields
 
-  private Weapon weapon;
-  private CapsuleCollider2D cc;
+  private Weapon[] weapons;
 
   private float playerBaseSpeed = Config.PlayerControllerSpeed;
   private float fireRate = Config.PlayerWeaponFireRate;
   private float nextFire;
+  private WeaponType currentWeapon = WeaponType.SingleShot;
 
   #endregion
 
   #region Mono Behaviour
 
   void Awake() {
-    cc = GetComponent<CapsuleCollider2D>();
-    weapon = GetComponent<Weapon>();
+    weapons = GetComponents<Weapon>();
   }
 
   void OnEnable() {
@@ -43,8 +43,9 @@ public class PlayerController : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    cc.enabled = false;
-    EventManager.TriggerEvent(new PlayerHitEvent());
+    currentWeapon = WeaponType.SingleShot;
+    if (collision2D.gameObject.name.Contains("PUDoubleShot"))
+      currentWeapon = WeaponType.DoubleShot;
   }
 
   #endregion
@@ -72,11 +73,11 @@ public class PlayerController : MonoBehaviour {
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {
-    if((Vector2) playerShotInput.mousePosition != Vector2.up)
+    if ((Vector2) playerShotInput.mousePosition != Vector2.up)
       FocusOnMouse(playerShotInput.mousePosition);
     if (Time.time > nextFire) {
       nextFire = Time.time + fireRate;
-      weapon.Shoot();
+      weapons[(int) currentWeapon].Shoot();
     }
   }
 

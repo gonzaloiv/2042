@@ -45,3 +45,21 @@ public enum EnemyScore {
   UFO = 10,
   None = 0
 }
+
+public enum WeaponType {
+  SingleShot,
+  DoubleShot
+}
+
+public enum CollisionLayer {
+  Enemy = 8,
+  Player = 9,
+  PowerUp = 10,
+  Ammo = 11
+}
+
+public enum PowerUpType {
+  ExtraLife,
+  DoubleShot,
+  Invulnerability
+}

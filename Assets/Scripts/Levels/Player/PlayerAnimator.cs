@@ -23,7 +23,6 @@ public class PlayerAnimator : MonoBehaviour {
   void OnEnable() {
     EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
-    EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
   }
@@ -31,10 +30,18 @@ public class PlayerAnimator : MonoBehaviour {
   void OnDisable() {
     EventManager.StopListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
-    EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
     EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
+  }
 
+  void OnCollisionEnter2D(Collision2D collision2D) {
+    if (collision2D.gameObject.layer != (int) CollisionLayer.PowerUp) {
+      transform.position = Config.PlayerSpawningPosition;
+      animator.Play("Respawn");
+    } else {
+      if (collision2D.gameObject.name.Contains("PUInvulnerability"))
+        animator.Play("Invulnerable");
+    }
   }
 
   #endregion
@@ -47,11 +54,6 @@ public class PlayerAnimator : MonoBehaviour {
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
     animator.Play("MoveLeft");
-  }
-
-  void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
-    transform.position = Config.PlayerSpawningPosition;
-    animator.Play("Respawn");
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {

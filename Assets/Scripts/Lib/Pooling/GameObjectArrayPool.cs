@@ -46,7 +46,7 @@ public class GameObjectArrayPool : IPool {
   }
 
   public GameObject PushObject() {
-    currentPrefabIndex++;
+    currentPrefabIndex = currentPrefabIndex < prefabs.Length - 1 ? currentPrefabIndex + 1: 0;
     return PushObject(currentPrefabIndex, prefabs[currentPrefabIndex]);
   }
 
