@@ -50,8 +50,8 @@ public class PlayerAnimator : MonoBehaviour {
   }
 
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
-    animator.Play("Respawn");
     transform.position = Config.PlayerSpawningPosition;
+    animator.Play("Respawn");
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {

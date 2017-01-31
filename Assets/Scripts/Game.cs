@@ -12,6 +12,7 @@ public class Game : MonoBehaviour {
 
   [SerializeField] private GameObject backgroundPrefab;
   [SerializeField] private GameObject levelPrefab;
+  [SerializeField] private Texture2D cursorSprite;
 
   #endregion
 
@@ -20,6 +21,8 @@ public class Game : MonoBehaviour {
   void Awake() {
     Physics2D.gravity = Config.GlobalGravity;
     Application.targetFrameRate = 60;
+    Cursor.SetCursor(cursorSprite, Vector2.zero, CursorMode.ForceSoftware);
+
 
     Instantiate(backgroundPrefab, transform);
     Instantiate(levelPrefab, transform);

@@ -22,7 +22,7 @@ public class ShootUFOState : State {
   }
 
   void Update() {
-    FocusOnPlayer();
+    FocusOnTarget();
   }
 
   #endregion
@@ -56,7 +56,7 @@ public class ShootUFOState : State {
     }
   }
 
-  private void FocusOnPlayer() {
+  private void FocusOnTarget() {
     Vector3 dir = target.position - transform.position;
     float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     // The angle focus transform.up on the direction of the target

@@ -7,7 +7,21 @@ public class MoveRightInput : UnityEvent {}
 public class MoveLeftInput : UnityEvent {}
 public class MoveDownInput : UnityEvent {}
 public class MoveUpInput : UnityEvent {}
-public class PlayerShotInput : UnityEvent {}
+
+public class PlayerShotInput : UnityEvent {
+  public Vector3 mousePosition;
+  public PlayerShotInput(Vector3 mousePosition) {
+    this.mousePosition = mousePosition;
+  }
+}
+
+public class MouseInput : UnityEvent{
+  public Vector3 mousePosition;
+  public MouseInput(Vector3 mousePosition) {
+    this.mousePosition = mousePosition;
+  }
+}
+
 public class PauseLevelInput : UnityEvent {}
 
 #endregion
@@ -15,7 +29,7 @@ public class PauseLevelInput : UnityEvent {}
 #region Game Mechanics Events
 
 public class PlayerHitEvent : UnityEvent {}
-public class GameOverEvent :UnityEvent {}
+
 public class EnemyHitEvent : UnityEvent {
   public int enemyScore;
   public EnemyHitEvent(int enemyScore) {
@@ -27,9 +41,10 @@ public class EnemyHitEvent : UnityEvent {
 
 #region Level Events
 
-public class StartGameEvent :UnityEvent {}
 public class EndLevelEvent : UnityEvent {}
+public class GameOverEvent :UnityEvent {}
 public class RestartGameEvent : UnityEvent {}
+public class StartGameEvent :UnityEvent {}
 
 #endregion
 

@@ -16,13 +16,13 @@ public class Player : MonoBehaviour {
   void OnEnable() {
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StartListening<EnemyHitEvent>(OnEnemyHitEvent);
-    EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
+    EventManager.StartListening<StartGameEvent>(OnStartGameEvent);
   }
 
   void OnDisable() {
     EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StopListening<EnemyHitEvent>(OnEnemyHitEvent);
-    EventManager.StopListening<RestartGameEvent>(OnRestartGameEvent);
+    EventManager.StopListening<StartGameEvent>(OnStartGameEvent);
   }
 
   #endregion
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
     EventManager.TriggerEvent(new ScoreUIEvent(score)); 
    }
 
-  void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
+  void OnStartGameEvent(StartGameEvent startGameEvent) {
     RestartPlayer();
   }
 

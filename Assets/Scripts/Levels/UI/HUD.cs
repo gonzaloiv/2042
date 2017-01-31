@@ -27,7 +27,7 @@ public class HUD : MonoBehaviour {
     EventManager.StartListening<ScoreUIEvent>(OnScoreUIEvent);
   }
 
-  void OnDisable() {
+  void OnDestroy() {
     EventManager.StopListening<LivesUIEvent>(OnLivesUIEvent);
     EventManager.StopListening<ScoreUIEvent>(OnScoreUIEvent);
   }

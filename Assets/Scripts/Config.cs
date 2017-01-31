@@ -7,6 +7,8 @@ public class Config {
   public const float BackgroundScrollingSpeed = .04f;
   public static float[] PlayerConstraints = { 4, 7, -3, -7 };
   public const int TimeScale = 1;
+  public const float MaxMouseAngle = 120;
+  public const float MinMouseAngle = 60;
 
   // Data
   public const string GameDataPath = "GameData";

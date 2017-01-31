@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-[RequireComponent(typeof(Weapon))]
+//[RequireComponent(typeof(Weapon))]
 
 public class PlayerController : MonoBehaviour {
 
   #region Fields
 
-  private BottomUpWeapon weapon;
+  private Weapon weapon;
   private CapsuleCollider2D cc;
 
   private float playerBaseSpeed = Config.PlayerControllerSpeed;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 
   void Awake() {
     cc = GetComponent<CapsuleCollider2D>();
-    weapon = GetComponent<BottomUpWeapon>();
+    weapon = GetComponent<Weapon>();
   }
 
   void OnEnable() {
@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    EventManager.TriggerEvent(new PlayerHitEvent());
     cc.enabled = false;
+    EventManager.TriggerEvent(new PlayerHitEvent());
   }
 
   #endregion
@@ -72,10 +72,25 @@ public class PlayerController : MonoBehaviour {
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {
+    if((Vector2) playerShotInput.mousePosition != Vector2.up)
+      FocusOnMouse(playerShotInput.mousePosition);
     if (Time.time > nextFire) {
       nextFire = Time.time + fireRate;
       weapon.Shoot();
     }
+  }
+
+  #endregion
+
+  #region Private Behaviour
+
+  private void FocusOnMouse(Vector2 mousePosition) {
+    Vector3 dir = Camera.main.ScreenToWorldPoint(mousePosition) - transform.position;
+    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+    angle = angle > Config.MaxMouseAngle ? Config.MaxMouseAngle : angle; 
+    angle = angle < Config.MinMouseAngle ? Config.MinMouseAngle : angle;
+    Quaternion q = Quaternion.AngleAxis(angle + -90, Vector3.forward);
+    transform.rotation = Quaternion.Slerp(transform.rotation, q, 100);
   }
 
   #endregion
