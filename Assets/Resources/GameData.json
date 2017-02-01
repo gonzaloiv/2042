@@ -37,6 +37,19 @@
         {
           "enemies": [
             {
+              "type": 2,
+              "amount": 1
+            }
+          ],
+          "powerUps": [
+             {
+              "type": 0
+            }
+          ]
+        },
+        {
+          "enemies": [
+            {
               "type": 0,
               "amount": 3
             },
@@ -49,6 +62,19 @@
              {
               "type": 2,
               "amount": 1
+            }
+          ]
+        },
+        {
+          "enemies": [
+            {
+              "type": 2,
+              "amount": 1
+            }
+          ],
+          "powerUps": [
+             {
+              "type": 0
             }
           ]
         }

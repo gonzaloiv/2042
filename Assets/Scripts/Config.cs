@@ -24,6 +24,9 @@ public class Config {
   // Player model
   public const int InitialLivesAmount = 3;
   public const int InitialScore = 0;
+
+  // Enemies
+  public const float RocketSpeed = .12f;
 	
 }
 
@@ -37,6 +40,7 @@ public enum Direction {
 public enum EnemyType {
   Meteor,
   UFO,
+  Rocket,
   None
 }
 

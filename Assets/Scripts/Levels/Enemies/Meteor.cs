@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Enemy))]
 
 public class Meteor : MonoBehaviour {
 
   #region Fields
 
-  protected Vector3 rotation;
+  private Vector3 rotation;
 
   #endregion
 

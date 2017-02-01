@@ -88,7 +88,7 @@ public class PlayLevelState : State {
   private IEnumerator SpawningRoutine(GameData.Level level) {
     for (int i = 0; i < level.waves.Length; i++) {
       yield return new WaitForSeconds(1);
-      LevelSpawner.SpawnWave(level.waves[i]);
+      WaveSpawner.SpawnWave(level.waves[i]);
     }
     // TODO: el evento se debería lanzar en el momento en que desaparece el último enemigo
     yield return new WaitForSeconds(3);

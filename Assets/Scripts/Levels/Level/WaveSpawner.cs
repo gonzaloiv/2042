@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSpawner : MonoBehaviour{
+public class WaveSpawner : MonoBehaviour{
 
   #region Fields
   
@@ -31,7 +31,8 @@ public class LevelSpawner : MonoBehaviour{
 
   private static void SpawnEnemies(GameData.Wave wave) {
     for (int i = 0; i < wave.enemies.Length; i++)
-      SpawnEnemy(wave.enemies[i]);
+      if(wave.enemies[i].amount != 0)
+        SpawnEnemy(wave.enemies[i]);
   }
 
   private static void  SpawnEnemy(GameData.Enemy enemyData) {
@@ -43,8 +44,9 @@ public class LevelSpawner : MonoBehaviour{
   }
 
   private static void SpawnPowerUps(GameData.Wave wave) {
-    for (int i = 0; i < wave.powerUps.Length; i++)
-      SpawnPowerUp(wave.powerUps[i]);
+      for (int i = 0; i < wave.powerUps.Length; i++)
+        if(wave.powerUps[i].amount != 0)
+          SpawnPowerUp(wave.powerUps[i]);
   }
 
   private static void SpawnPowerUp(GameData.PowerUp powerUpData) {
