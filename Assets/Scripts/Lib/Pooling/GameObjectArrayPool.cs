@@ -42,7 +42,7 @@ public class GameObjectArrayPool : IPool {
       if (!obj.activeInHierarchy)
         return obj;
     }
-    return PushObject();
+    return PushObject(prefabIndex, prefabs[prefabIndex]);
   }
 
   public GameObject PushObject() {
@@ -59,14 +59,13 @@ public class GameObjectArrayPool : IPool {
   }
 
   public void Prepopulate(int objectAmount) {
-    int x = 0, y = 0;
+    int x = 0, y = currentPrefabIndex;
     while (x < objectAmount) {
-      for (y = currentPrefabIndex; y < prefabs.Length; y++) {
-        PushObject(currentPrefabIndex, prefabs[y]); 
-        x++;
-      }
+      PushObject(y, prefabs[y]);
+      y = y < prefabs.Length - 1 ? y += 1 : 0 ;
+      x++;
     }
-    currentPrefabIndex = y;
+    currentPrefabIndex = y - 1;
   }
 
   #endregion

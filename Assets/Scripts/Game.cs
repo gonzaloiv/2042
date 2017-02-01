@@ -23,7 +23,6 @@ public class Game : MonoBehaviour {
     Application.targetFrameRate = 60;
     Cursor.SetCursor(cursorSprite, Vector2.zero, CursorMode.ForceSoftware);
 
-
     Instantiate(backgroundPrefab, transform);
     Instantiate(levelPrefab, transform);
   }

@@ -31,29 +31,13 @@ public class Config {
   public const float RocketSpeed = .12f;
 }
 
+// GLOBAL
+
 public enum Direction {
   Up,
   Right,
   Down,
   Left
-}
-
-public enum EnemyType {
-  Meteor,
-  UFO,
-  Rocket,
-  None
-}
-
-public enum EnemyScore {
-  Meteor = 5,
-  UFO = 10,
-  None = 0
-}
-
-public enum WeaponType {
-  SingleShot,
-  DoubleShot
 }
 
 public enum CollisionLayer {
@@ -65,8 +49,30 @@ public enum CollisionLayer {
   PlayerAmmo = 13
 }
 
+// GAME DATA
+
+public enum EnemyType {
+  Meteor,
+  UFO,
+  Rocket,
+  Ship,
+  ShipGroup
+}
+
+public enum EnemyScore {
+  Meteor = 5,
+  UFO = 10,
+  Rocket = 0,
+  Ship = 15,
+}
+
 public enum PowerUpType {
   ExtraLife,
   DoubleShot,
   Invulnerability
+}
+
+public enum WeaponType {
+  SingleShot,
+  DoubleShot
 }

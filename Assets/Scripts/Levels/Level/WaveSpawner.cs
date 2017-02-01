@@ -26,7 +26,7 @@ public class WaveSpawner : MonoBehaviour {
     if (wave.enemies != null)
       SpawnEnemies(wave);
     if (wave.powerUps != null)
-      SpawnPowerUps(wave);
+      SpawnPowerUps(wave);   
 
     return waveObjects;
   }
@@ -35,6 +35,7 @@ public class WaveSpawner : MonoBehaviour {
 
   #region Private Behaviour
 
+  // ENEMIES
   private static void SpawnEnemies(LevelData.Wave wave) {
     for (int i = 0; i < wave.enemies.Length; i++)
       if (wave.enemies[i].amount != 0)
@@ -50,7 +51,8 @@ public class WaveSpawner : MonoBehaviour {
       waveObjects.Add(enemy);
     }
   }
-
+ 
+  // POWER UPS
   private static void SpawnPowerUps(LevelData.Wave wave) {
     for (int i = 0; i < wave.powerUps.Length; i++)
       if (wave.powerUps[i].amount != 0)
@@ -59,7 +61,7 @@ public class WaveSpawner : MonoBehaviour {
 
   private static void SpawnPowerUp(LevelData.PowerUp powerUpData) {
     for (int i = 0; i < powerUpData.amount; i++) {
-      GameObject powerUp = poolManager.PowerUpPool.PopObject((int) powerUpData.type);
+      GameObject powerUp = poolManager.PowerUpPool.PopObject(powerUpData.type);
       powerUp.transform.position = powerUpData.positions.Length != 0 ? new Vector3(powerUpData.positions[i], 6, 0) : new Vector3(Random.Range(-7, 7), 6, 0);
       powerUp.SetActive(true);
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine : State {
+public class StateMachine : MonoBehaviour {
 
   #region Fields
 

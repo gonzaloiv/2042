@@ -35,7 +35,7 @@ public class ShootUFOState : State {
 
     // TODO: corregir dependencia entre los enemigos y el jugador
     if(!target)
-      target = transform.root.GetComponentInChildren<Player>().transform;
+      target = GameObject.FindGameObjectWithTag("Player").transform;
 
     StartCoroutine(shootingCoroutine);
   }
@@ -66,6 +66,5 @@ public class ShootUFOState : State {
   }
  
   #endregion
-
 
 }

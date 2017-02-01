@@ -76,7 +76,9 @@ public class PlayWaveState : State {
 
   private IEnumerator SpawningRoutine() {
 
-    LevelData.Wave wave = level.GameData[currentLevel - 1].waves[currentWave - 1];
+    // TESTING
+    // LevelData.Wave wave = level.GameData[currentLevel - 1].waves[currentWave - 1];
+    LevelData.Wave wave = level.GameData[0].waves[currentWave - 1];
     waveObjects = WaveSpawner.SpawnWave(wave);
 
     if (wave.duration != 0)
@@ -105,7 +107,8 @@ public class PlayWaveState : State {
   }
 
   private bool IsLevelLastWave() {
-    return level.GameData[currentLevel - 1].waves.Length > currentWave;
+//    return level.GameData[currentLevel - 1].waves.Length > currentWave;
+    return level.GameData[0].waves.Length > currentWave;
   }
 
   #endregion

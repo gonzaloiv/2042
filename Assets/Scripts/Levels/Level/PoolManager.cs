@@ -12,11 +12,13 @@ public class PoolManager : Pooler {
   [SerializeField] private GameObject[] meteorPrefabs;
   [SerializeField] private GameObject[] ufoPrefabs;
   [SerializeField] private GameObject[] rocketPrefabs;
+  [SerializeField] private GameObject[] shipPrefabs;
+  [SerializeField] private GameObject shipGroupPrefab;
 
   [SerializeField] private GameObject[] powerUpPrefabs;
- 
-  public List<GameObjectArrayPool> EnemyPools { get { return enemyPools; } }
-  private List<GameObjectArrayPool> enemyPools;
+
+  public List<IPool> EnemyPools { get { return enemyPools; } }
+  private List<IPool> enemyPools;
 
   public GameObjectArrayPool PowerUpPool { get { return powerUpPool; } }
   private GameObjectArrayPool powerUpPool;
@@ -36,18 +38,20 @@ public class PoolManager : Pooler {
   }
 
   public void InitializeEnemyPools() {
-    enemyPools = new List<GameObjectArrayPool>();
+    enemyPools = new List<IPool>();
 
     levelEnemies = new GameObject("EnemyPool").transform;
     levelEnemies.SetParent(transform);
 
-    enemyPools.Add(CreateGameObjectPool("MeteorPool", meteorPrefabs, 15, levelEnemies));
-    enemyPools.Add(CreateGameObjectPool("UFOPool", ufoPrefabs, 6, levelEnemies));
-    enemyPools.Add(CreateGameObjectPool("RocketPool", rocketPrefabs, 6, levelEnemies));
+    enemyPools.Add(CreateGameObjectPool("MeteorPool", meteorPrefabs, 16, levelEnemies));
+    enemyPools.Add(CreateGameObjectPool("UFOPool", ufoPrefabs, 4, levelEnemies));
+    enemyPools.Add(CreateGameObjectPool("RocketPool", rocketPrefabs, 4, levelEnemies));
+    enemyPools.Add(CreateGameObjectPool("ShipPool", shipPrefabs, 5, levelEnemies));
+    enemyPools.Add(CreateGameObjectPool("ShipGroupPool", shipGroupPrefab, 1, levelEnemies));
   }
-  
+
   public void InitializePowerUpPool() {
-    powerUpPool = CreateGameObjectPool("PowerUpPool", powerUpPrefabs, 1, transform);
+    powerUpPool = CreateGameObjectPool("PowerUpPool", powerUpPrefabs, 3, transform);
   }
 
   #endregion

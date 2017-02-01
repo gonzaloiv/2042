@@ -16,7 +16,7 @@
       }]
     },
     {
-      "duration": 0.3,
+      "duration": 1,
       "enemies": [{
         "type": 0,
         "amount": 3,
@@ -24,7 +24,7 @@
       }]
     },
     {
-      "duration": 1.2,
+      "duration": 1.7,
       "enemies": [{
           "type": 0,
           "amount": 2,
@@ -37,9 +37,28 @@
         }
       ],
       "powerUps": [{
-        "type": 1,
+        "type": 2,
         "amount": 1,
         "positions": [3]
+      }]
+    },
+    {
+      "duration": 1.7,
+      "enemies": [{
+          "type": 0,
+          "amount": 2,
+          "positions": [-6, 6]
+        },
+        {
+          "type": 3,
+          "amount": 2,
+          "positions": [-3, 3]
+        }
+      ],
+      "powerUps": [{
+        "type": 3,
+        "amount": 1,
+        "positions": [5]
       }]
     },
     {
@@ -79,7 +98,7 @@
       "powerUps": [{
         "type": 1,
         "amount": 1,
-        "positions": [3]
+        "positions": [2]
       }]
     }
   ]

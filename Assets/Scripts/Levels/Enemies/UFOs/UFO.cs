@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Weapon))]
-[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Enemy))]
-[RequireComponent(typeof(IdleUFOState))]
-[RequireComponent(typeof(ShootUFOState))]
 
 public class UFO : StateMachine {
 

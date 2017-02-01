@@ -1,37 +1,13 @@
 {
   "waves": [{
-      "duration": 0.3,
-      "enemies": [{
-        "type": 0,
-        "amount": 3,
-        "positions": [-6, 0, 6]
-      }]
-    },
-    {
-      "duration": 0.3,
-      "enemies": [{
-        "type": 0,
-        "amount": 3,
-        "positions": [-6, 0, 6]
-      }]
-    },
-    {
-      "duration": 0.3,
-      "enemies": [{
-        "type": 0,
-        "amount": 3,
-        "positions": [-6, 0, 6]
-      }]
-    },
-    {
-      "duration": 1.2,
+      "duration": 1.7,
       "enemies": [{
           "type": 0,
           "amount": 2,
           "positions": [-6, 6]
         },
         {
-          "type": 1,
+          "type": 3,
           "amount": 2,
           "positions": [-3, 3]
         }
@@ -39,47 +15,15 @@
       "powerUps": [{
         "type": 1,
         "amount": 1,
-        "positions": [3]
+        "positions": [0]
       }]
     },
     {
       "duration": 2,
-      "enemies": [{
-        "type": 2,
-        "amount": 1
-      }]
-    },
-    {
-      "duration": 2,
-      "enemies": [{
-        "type": 2,
-        "amount": 1
-      }]
-    },
-    {
-      "duration": 2,
-      "enemies": [{
-        "type": 2,
-        "amount": 1
-      }]
-    },
-     {
-      "duration": 1.2,
-      "enemies": [{
-          "type": 0,
-          "amount": 2,
-          "positions": [-6, 6]
-        },
-        {
-          "type": 1,
-          "amount": 3,
-          "positions": [-2, 0, 2]
-        }
-      ],
-      "powerUps": [{
-        "type": 1,
-        "amount": 1,
-        "positions": [3]
+      "enemyGroups": [{
+        "type": 0,
+        "amount": 5,
+        "position": 0
       }]
     }
   ]

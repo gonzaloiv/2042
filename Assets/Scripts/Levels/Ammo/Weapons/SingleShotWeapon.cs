@@ -8,7 +8,7 @@ public class SingleShotWeapon : Weapon {
 
   public override void Shoot() {
     if (shotPool != null) {
-      shot = shotPool.PopObject();
+      GameObject shot = shotPool.PopObject();
       shot.transform.position = transform.position + transform.up;
       shot.transform.rotation = transform.rotation;
       shot.SetActive(true);

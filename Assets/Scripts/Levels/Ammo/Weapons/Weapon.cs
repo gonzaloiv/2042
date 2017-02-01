@@ -9,8 +9,6 @@ public class Weapon : MonoBehaviour {
   #region Fields
 
   protected IPool shotPool;
-  protected GameObject shot;
-
   protected float shotSpeed = Config.BasicShotSpeed;
 
   #endregion
@@ -19,6 +17,10 @@ public class Weapon : MonoBehaviour {
 
   public virtual void SetShotPool(IPool shotPool) {
     this.shotPool = shotPool;
+  }
+
+  public virtual void SetShotSpeed(float shotSpeed) {
+    this.shotSpeed = shotSpeed;
   }
 
   public virtual void Shoot() {}

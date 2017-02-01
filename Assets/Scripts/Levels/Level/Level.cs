@@ -65,23 +65,22 @@ public class Level : StateMachine {
   #region Events Behaviour
 
   void OnEscapeInput(EscapeInput escapeInput) {
-    if(Time.timeScale == Config.TimeScale)
+    if (Time.timeScale == Config.TimeScale)
       pauseScreen.SetActive(true);
     else
       pauseScreen.SetActive(false);
   }
 
   void OnEndWaveEvent(EndWaveEvent endWaveEvent) {
-    ChangeState<PlayWaveState>();  
+    ChangeState<PlayWaveState>();
   }
 
-  void OnEndLevelEvent (EndLevelEvent endLevelEvent) {
+  void OnEndLevelEvent(EndLevelEvent endLevelEvent) {
     currentLevel++;
-
     loadLevelRoutine = LoadLevelRoutine();
     StartCoroutine(loadLevelRoutine);
   }
- 
+
   void OnRestartScreenEvent(RestartScreenEvent restartScreenEvent) {
     hud.SetActive(false);
     ChangeState<RestartLevelState>();
@@ -101,7 +100,7 @@ public class Level : StateMachine {
 
   private List<LevelData.Level> ParseGameDataFiles() {
     List<LevelData.Level> levels = new List<LevelData.Level>();
-    foreach(TextAsset textAsset in Resources.LoadAll(Config.GameDataPath).Cast<TextAsset>())
+    foreach (TextAsset textAsset in Resources.LoadAll(Config.GameDataPath).Cast<TextAsset>())
       levels.Add(JsonUtility.FromJson<LevelData.Level>(textAsset.text));
 
     return levels;

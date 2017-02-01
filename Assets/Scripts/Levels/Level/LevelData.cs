@@ -43,11 +43,11 @@ namespace LevelData {
   [Serializable]
   public struct PowerUp {
 
-    public PowerUpType type;
+    public int type;
     public int amount;
     public int[] positions;
 
-    public PowerUp(PowerUpType type, int amount, int[] positions = null) {
+    public PowerUp(int type, int amount, int[] positions = null) {
       this.type = type;
       this.amount = amount;
       this.positions = positions;

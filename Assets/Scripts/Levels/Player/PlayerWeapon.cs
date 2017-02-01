@@ -31,7 +31,8 @@ public class PlayerWeapon : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    currentWeapon = WeaponType.SingleShot;
+    if (collision2D.gameObject.layer != (int) CollisionLayer.PowerUp)
+      currentWeapon = WeaponType.SingleShot;
     if (collision2D.gameObject.name.Contains("PUDoubleShot"))
       currentWeapon = WeaponType.DoubleShot;
   }
