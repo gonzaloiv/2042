@@ -31,7 +31,9 @@ public class InputManager : MonoBehaviour {
    
     // LEVEL INPUT
     if (Input.GetKeyDown(KeyCode.Escape))
-      EventManager.TriggerEvent(new PauseLevelInput());
+      EventManager.TriggerEvent(new EscapeInput());
+    if (Input.GetKeyDown(KeyCode.Return))
+      EventManager.TriggerEvent(new EnterInput());
 
   }
 

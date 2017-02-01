@@ -41,6 +41,9 @@ public class LoadLevelState : State {
      
     loadScreen.SetActive(true);
     loadScreenLabel.text = loadScreenInitialText + level.CurrentLevel;
+
+    if (level.CurrentLevel >= level.GameData.Count)
+      EventManager.TriggerEvent(new GameOverEvent());
   }
 
   public override void Exit() {

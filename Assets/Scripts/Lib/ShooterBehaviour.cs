@@ -16,10 +16,6 @@ public abstract class ShooterBehaviour : MonoBehaviour {
 
   #region Protected Behaviour
 
-  protected void Enable() {   
-    gameObject.SetActive(false);
-  }
-
   protected void Disable() {   
     gameObject.SetActive(false);
   }

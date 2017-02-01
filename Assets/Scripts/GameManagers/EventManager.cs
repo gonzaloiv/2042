@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
+﻿using UnityEngine.Events;
 using System.Collections.Generic;
 
 // Based on wmiller's Gist: https://gist.github.com/wmiller/3903205#file-events-cs

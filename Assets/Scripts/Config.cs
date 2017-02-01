@@ -11,9 +11,11 @@ public class Config {
   public const float MinMouseAngle = 60;
 
   // Data
-  public const string GameDataPath = "GameData";
+  public const string GameDataPath = "LevelData";
 
   // Level
+  public const int InitialLevel = 1;
+  public const int InitialWave = 1;
   public static Vector2 PlayerSpawningPosition = new Vector2(0, -3);
 
   // Player physics
@@ -22,12 +24,11 @@ public class Config {
   public const float PlayerWeaponFireRate = .1f;
 
   // Player model
-  public const int InitialLivesAmount = 3;
+  public const int InitialLivesAmount = 1;
   public const int InitialScore = 0;
 
   // Enemies
   public const float RocketSpeed = .12f;
-	
 }
 
 public enum Direction {

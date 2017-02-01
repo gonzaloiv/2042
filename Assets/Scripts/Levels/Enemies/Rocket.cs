@@ -24,7 +24,7 @@ public class Rocket : ShooterBehaviour {
   }
 
   void OnEnable() {
-    transform.position = new Vector2(direction.y * 10, transform.position.y);
+    transform.position = new Vector2(direction.y * 8 + Random.Range(0, 2), transform.position.y);
   }
 
   void Update() {

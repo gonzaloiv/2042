@@ -15,7 +15,8 @@ public class PlayerShotInput : UnityEvent {
   }
 }
 
-public class PauseLevelInput : UnityEvent {}
+public class EscapeInput : UnityEvent {}
+public class EnterInput : UnityEvent {}
 
 #endregion
 
@@ -32,9 +33,10 @@ public class EnemyHitEvent : UnityEvent {
 
 #region Level Events
 
+public class EndWaveEvent : UnityEvent {}
 public class EndLevelEvent : UnityEvent {}
 public class GameOverEvent :UnityEvent {}
-public class RestartGameEvent : UnityEvent {}
+public class RestartScreenEvent : UnityEvent {}
 public class StartGameEvent :UnityEvent {}
 
 #endregion

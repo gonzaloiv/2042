@@ -35,19 +35,19 @@ public class RestartLevelState : State {
   }
 
   protected override void AddListeners() {
-    EventManager.StartListening<PauseLevelInput>(OnPauseLevelInput);
+    EventManager.StartListening<EnterInput>(OnEnterInput);
   }
 
   protected override void RemoveListeners() {
-    EventManager.StopListening<PauseLevelInput>(OnPauseLevelInput);
+    EventManager.StopListening<EnterInput>(OnEnterInput);
   }
 
   #endregion
 
   #region Event Behaviour
 
-  void OnPauseLevelInput(PauseLevelInput pauseLevelInput) {
-    EventManager.TriggerEvent(new RestartGameEvent());
+  void OnEnterInput(EnterInput enterInput) {
+    EventManager.TriggerEvent(new StartGameEvent());
   }
 
   #endregion
