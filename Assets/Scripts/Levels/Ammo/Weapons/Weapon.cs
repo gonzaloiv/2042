@@ -8,22 +8,18 @@ public class Weapon : MonoBehaviour {
 
   #region Fields
 
-  protected GameObjectPool shotPool;
+  protected IPool shotPool;
   protected GameObject shot;
 
   protected float shotSpeed = Config.BasicShotSpeed;
 
   #endregion
 
-  #region Mono Behaviour
-
-  void Awake() {
-    shotPool = PoolManager.GetPool<GameObjectPool>("ShotPool");
-  }
-
-  #endregion
- 
   #region Public Behaviour
+
+  public virtual void SetShotPool(IPool shotPool) {
+    this.shotPool = shotPool;
+  }
 
   public virtual void Shoot() {}
 

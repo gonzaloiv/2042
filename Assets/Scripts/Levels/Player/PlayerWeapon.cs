@@ -18,6 +18,8 @@ public class PlayerWeapon : MonoBehaviour {
 
   void Awake() {
     weapons = GetComponents<Weapon>();
+    foreach(Weapon weapon in weapons)
+      weapon.SetShotPool(PoolManager.GetPool<GameObjectPool>("PlayerShotPool"));
   }
 
   void OnEnable() {

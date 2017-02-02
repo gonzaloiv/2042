@@ -6,7 +6,6 @@ public class DoubleShotWeapon : Weapon {
 
   #region Public Behaviour
 
-  // GuidedWeapon shoots in transform.up direction
   public override void Shoot() {
     if (shotPool != null) {
       for (float i = 0; i < .5f; i = i + .4f) {

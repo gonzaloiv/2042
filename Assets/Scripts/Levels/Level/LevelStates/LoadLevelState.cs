@@ -25,10 +25,10 @@ public class LoadLevelState : State {
     level = GetComponent<Level>();    
     poolManager = GetComponent<PoolManager>();
 
-    // Orden de ejecución según dependencias...
-    poolManager.InitializeShotPool();
+    poolManager.InitializePlayerShotPool();
     Instantiate(playerPrefab, transform);
 
+    poolManager.InitializeEnemyShotPool();
     poolManager.InitializeEnemyPools();
     poolManager.InitializePowerUpPool();
   }

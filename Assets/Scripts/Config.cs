@@ -24,7 +24,7 @@ public class Config {
   public const float PlayerWeaponFireRate = .1f;
 
   // Player model
-  public const int InitialLivesAmount = 1;
+  public const int InitialLivesAmount = 3;
   public const int InitialScore = 0;
 
   // Enemies
@@ -60,7 +60,9 @@ public enum CollisionLayer {
   Enemy = 8,
   Player = 9,
   PowerUp = 10,
-  Ammo = 11
+  Constraint = 11,
+  EnemyAmmo = 12,
+  PlayerAmmo = 13
 }
 
 public enum PowerUpType {

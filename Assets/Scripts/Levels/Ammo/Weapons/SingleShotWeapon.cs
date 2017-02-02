@@ -6,7 +6,6 @@ public class SingleShotWeapon : Weapon {
 
   #region Public Behaviour
 
-  // GuidedWeapon shoots in transform.up direction
   public override void Shoot() {
     if (shotPool != null) {
       shot = shotPool.PopObject();

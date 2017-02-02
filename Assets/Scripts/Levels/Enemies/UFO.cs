@@ -14,6 +14,7 @@ public class UFO : StateMachine {
 
   void Awake() {
     GetComponent<Enemy>().SetScore((int) EnemyScore.UFO);
+    GetComponent<Weapon>().SetShotPool(PoolManager.GetPool<GameObjectPool>("EnemyShotPool"));
   }
 
   void OnEnable() {
