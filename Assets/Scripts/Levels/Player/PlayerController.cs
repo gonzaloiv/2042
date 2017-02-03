@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {  
-    Debug.Log(collision2D.gameObject.name);
     if (collision2D.gameObject.layer == (int) CollisionLayer.PowerUp && collision2D.gameObject.name.Contains("PUDoubleSpeed"))
       StartCoroutine(DoubleSpeed());
   }

@@ -13,6 +13,9 @@ public class Level : MonoBehaviour {
   public int CurrentLevel { get { return currentLevel; } }
   private int currentLevel = Config.InitialLevel;
 
+  public int CurrentWave { get { return currentWave; } }
+  private int currentWave = Config.InitialWave;
+
   #endregion
 
   #region Mono Behaviour
@@ -22,11 +25,13 @@ public class Level : MonoBehaviour {
   }
 
   void OnEnable() {
+    EventManager.StartListening<EndWaveEvent>(OnEndWaveEvent);
     EventManager.StartListening<EndLevelEvent>(OnEndLevelEvent);
     EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   void OnDisable() {
+    EventManager.StopListening<EndWaveEvent>(OnEndWaveEvent);
     EventManager.StopListening<EndLevelEvent>(OnEndLevelEvent);
     EventManager.StopListening<RestartGameEvent>(OnRestartGameEvent);
   }
@@ -35,15 +40,29 @@ public class Level : MonoBehaviour {
 
   #region Events Behaviour
 
+  void OnEndWaveEvent(EndWaveEvent endWaveEvent) {
+    currentWave++;
+  }
+
   void OnEndLevelEvent(EndLevelEvent endLevelEvent) {
     currentLevel++;
+    currentWave = Config.InitialWave;
   }
 
   void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
     currentLevel = Config.InitialLevel;
+    currentWave = Config.InitialWave;
   }
 
   #endregion
+
+  public LevelData.Wave GetCurrentWaveData() {
+    return gameData[currentLevel - 1].waves[currentWave - 1];
+  }
+
+  public bool HasMoreWaves() {
+    return gameData[currentLevel - 1].waves.Length > currentWave;
+  }
 
   #region Private Behaviour
 

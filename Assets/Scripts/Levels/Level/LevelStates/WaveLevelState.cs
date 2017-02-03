@@ -8,9 +8,7 @@ public class WaveLevelState : State {
   #region Fields
 
   private Level level;
-  private int currentLevel;
 
-  private int currentWave = Config.InitialWave;
   private List<GameObject> waveObjects;
   private IEnumerator spawningRoutine;
   private bool gameOver = false;
@@ -21,7 +19,6 @@ public class WaveLevelState : State {
 
   void Awake() {
     level = GetComponent<Level>();
-    currentLevel = level.CurrentLevel;
     waveObjects = new List<GameObject>();
   }
 
@@ -31,10 +28,7 @@ public class WaveLevelState : State {
 
   public override void Enter() {
     base.Enter();
-   
-    if (currentLevel != level.CurrentLevel)
-      RestartState();
-     
+
     spawningRoutine = SpawningRoutine();
     StartCoroutine(spawningRoutine);
   }
@@ -43,7 +37,6 @@ public class WaveLevelState : State {
     base.Exit();
 
     StopCoroutine(spawningRoutine);
-    currentWave++;
   }
 
   protected override void AddListeners() {
@@ -66,7 +59,6 @@ public class WaveLevelState : State {
 
   void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
     gameOver = false;
-    RestartState();
   }
 
   #endregion
@@ -74,37 +66,23 @@ public class WaveLevelState : State {
   #region Private Behaviour
 
   private IEnumerator SpawningRoutine() {
+    LevelData.Wave currentWave = level.GetCurrentWaveData();
+    waveObjects = WaveSpawner.SpawnWave(currentWave);
 
-    LevelData.Wave wave = level.GameData[currentLevel - 1].waves[currentWave - 1];
-    waveObjects = WaveSpawner.SpawnWave(wave);
+    if (currentWave.duration != 0)
+      yield return new WaitForSeconds(currentWave.duration);
 
-    if (wave.duration != 0)
-      yield return new WaitForSeconds(wave.duration);
-
-    if (gameOver) {
-      EventManager.TriggerEvent(new RestartScreenEvent());
-    } else if (LevelHasNextWave()) {
+    if (!gameOver && level.HasMoreWaves()) {
       EventManager.TriggerEvent(new EndWaveEvent());
     } else {
       while (HasActiveChildren())
         yield return new WaitForSeconds(.1f);
-      // TODO: resolver problema durante la espera en caso de cambio de nivel con otro estado
-      if (gameOver) {
+      if (gameOver)
         EventManager.TriggerEvent(new RestartScreenEvent());
-      } else {
+      else
         EventManager.TriggerEvent(new EndLevelEvent());
-      }
-    }
+    } 
 
-  }
-
-  private void RestartState() {
-    currentLevel = level.CurrentLevel;
-    currentWave = Config.InitialWave;
-  }
-
-  private bool LevelHasNextWave() {
-    return level.GameData[currentLevel - 1].waves.Length > currentWave;
   }
 
   private bool HasActiveChildren() {

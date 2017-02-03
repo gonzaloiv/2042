@@ -20,6 +20,7 @@ public class ShipGroup : MonoBehaviour {
   }
 
   void OnEnable() {
+    InitializeChildren();
     shipGroupBehaviourRoutine = ShipGroupBehaviourRoutine();
     StartCoroutine(shipGroupBehaviourRoutine);
   }
@@ -32,20 +33,21 @@ public class ShipGroup : MonoBehaviour {
 
   #region Private Behaviour
 
+  private void InitializeChildren() {
+    for (int i = 0; i < ships.Count; i++) {
+      ships[i].transform.position = new Vector2(i * 1.5f - 3, 6);  
+      ships[i].gameObject.SetActive(true);
+    }
+  }
+
   private IEnumerator ShipGroupBehaviourRoutine() {
     yield return new WaitForSeconds(.8f);
     while (HasActiveChildren()) {
-      foreach (Ship ship in ships)
-        if (ship.gameObject.activeInHierarchy)
-          ship.ChangeState<MoveShipState>();
+      ships.Where(x => x.gameObject.activeInHierarchy).ToList().ForEach(x => x.ChangeState<MoveShipState>());
       yield return new WaitForSeconds(.2f);
-      foreach (Ship ship in ships)
-        if (ship.gameObject.activeInHierarchy)
-          ship.ChangeState<ShootShipState>();
+      ships.Where(x => x.gameObject.activeInHierarchy).ToList().ForEach(x => x.ChangeState<ShootShipState>());
       yield return new WaitForSeconds(.4f);
-      foreach (Ship ship in ships)
-        if (ship.gameObject.activeInHierarchy)
-          ship.ChangeState<IdleShipState>();
+      ships.Where(x => x.gameObject.activeInHierarchy).ToList().ForEach(x => x.ChangeState<IdleShipState>());
     }
     gameObject.SetActive(false);
   }

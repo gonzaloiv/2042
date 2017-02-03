@@ -19,6 +19,7 @@
       }]
     },
     {
+      "duration": 1.7,
       "enemies": [{
         "type": 4,
         "amount": 1,

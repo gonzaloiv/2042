@@ -48,7 +48,7 @@ public class WaveSpawner : MonoBehaviour {
       GameObject obj = typeof(T) == typeof(LevelData.Enemy) ? poolManager.EnemyPools[objectData.GetType()].PopObject() : poolManager.PowerUpPool.PopObject(objectData.GetType());
       obj.transform.position = objectData.GetPositions().Length != 0 ? new Vector3(objectData.GetPositions()[i], 6, 0) : new Vector3(Random.Range(-7, 7), 6, 0);
       obj.SetActive(true);
- 
+
       waveObjects.Add(obj);
     }
   }
