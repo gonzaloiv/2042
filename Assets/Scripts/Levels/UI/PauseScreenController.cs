@@ -32,10 +32,10 @@ public class PauseScreenController : MonoBehaviour {
 
   void OnEscapeInput(EscapeInput escapeInput) {
     if (Time.timeScale == Config.TimeScale) {
-      Time.timeScale = 0;
+      TimeManager.StopTime();
       pauseScreen.SetActive(true);
     } else {
-      Time.timeScale = Config.TimeScale;
+      TimeManager.StartTime();
       pauseScreen.SetActive(false);
     }
   }

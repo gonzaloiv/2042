@@ -13,17 +13,16 @@
         }
       ],
       "powerUps": [{
-        "type": 1,
+        "type": 3,
         "amount": 1,
-        "positions": [0]
+        "positions": [1]
       }]
     },
     {
-      "duration": 2,
-      "enemyGroups": [{
-        "type": 0,
-        "amount": 5,
-        "position": 0
+      "enemies": [{
+        "type": 4,
+        "amount": 1,
+        "positions": [0]
       }]
     }
   ]

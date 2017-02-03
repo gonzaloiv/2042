@@ -27,4 +27,20 @@ public class TimeManager : MonoBehaviour {
 
   #endregion
 
+  #region Public Behaviour
+
+  public static void StopTime() {
+    Time.timeScale = 0;
+  }
+
+  public static void StartTime() {
+    Time.timeScale = Config.TimeScale;
+  }
+
+  public static void ModifyTimeScale(float percentage) {
+    Time.timeScale = Time.timeScale * percentage;
+  }
+
+  #endregion
+
 }

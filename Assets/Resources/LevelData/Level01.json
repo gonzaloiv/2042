@@ -13,9 +13,9 @@
         }
       ],
       "powerUps": [{
-        "type": 1,
+        "type": 3,
         "amount": 1,
-        "positions": [0]
+        "positions": [1]
       }]
     },
     {

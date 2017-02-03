@@ -17,6 +17,7 @@ public class PlayerAnimator : MonoBehaviour {
 
   void Awake() {
     animator = GetComponent<Animator>();
+
     shootingParticleSystem = GetComponentInChildren<ParticleSystem>();
   }
 
@@ -25,6 +26,7 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StartListening<PlayerShotInput>(OnPlayerShotInput);
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
+    EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   void OnDisable() {
@@ -32,12 +34,13 @@ public class PlayerAnimator : MonoBehaviour {
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
     EventManager.StopListening<PlayerShotInput>(OnPlayerShotInput);
     EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
+    EventManager.StopListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
     if (collision2D.gameObject.layer != (int) CollisionLayer.PowerUp) {
-      transform.position = Config.PlayerSpawningPosition;
       animator.Play("Respawn");
+      transform.position = Config.PlayerSpawningPosition;
     } else {
       if (collision2D.gameObject.name.Contains("PUInvulnerability"))
         animator.Play("Invulnerable");
@@ -63,6 +66,11 @@ public class PlayerAnimator : MonoBehaviour {
   void OnGameOverEvent(GameOverEvent gameOverEvent) {
     animator.Play("Die");
   }
+
+  void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
+    animator.Play("Idle");
+  }
+
 
   #endregion
 	

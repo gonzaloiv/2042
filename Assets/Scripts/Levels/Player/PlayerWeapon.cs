@@ -33,8 +33,12 @@ public class PlayerWeapon : MonoBehaviour {
   void OnCollisionEnter2D(Collision2D collision2D) {
     if (collision2D.gameObject.layer != (int) CollisionLayer.PowerUp)
       currentWeapon = WeaponType.SingleShot;
-    if (collision2D.gameObject.name.Contains("PUDoubleShot"))
-      currentWeapon = WeaponType.DoubleShot;
+    else {
+      if (collision2D.gameObject.name.Contains("PUDoubleShot"))
+        currentWeapon = WeaponType.DoubleShot;
+      if (collision2D.gameObject.name.Contains("PUDoubleSpeed"))
+        StartCoroutine(DoubleSpeed());
+    }
   }
 
   #endregion
@@ -44,8 +48,8 @@ public class PlayerWeapon : MonoBehaviour {
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {
     if ((Vector2) playerShotInput.mousePosition != Vector2.up)
       FocusOnMouse(playerShotInput.mousePosition);
-    if (Time.time > nextFire) {
-      nextFire = Time.time + fireRate;
+    if (Time.realtimeSinceStartup > nextFire) {
+      nextFire = Time.realtimeSinceStartup + fireRate;
       weapons[(int) currentWeapon].Shoot();
     }
   }
@@ -61,6 +65,14 @@ public class PlayerWeapon : MonoBehaviour {
     angle = angle < Config.MinMouseAngle ? Config.MinMouseAngle : angle;
     Quaternion q = Quaternion.AngleAxis(angle + -90, Vector3.forward);
     transform.rotation = Quaternion.Slerp(transform.rotation, q, 100);
+  }
+
+  public IEnumerator DoubleSpeed() {
+    foreach(Weapon weapon in weapons)
+      weapon.SetShotSpeed(Config.BasicShotSpeed * 4);
+    yield return new WaitForSeconds(2);
+    foreach(Weapon weapon in weapons)
+      weapon.SetShotSpeed(Config.BasicShotSpeed);
   }
 
   #endregion

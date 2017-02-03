@@ -43,13 +43,13 @@ public class WaveSpawner : MonoBehaviour {
         SpawnGameObject(gameObjects[i]);
   }
 
-  private static void  SpawnGameObject<T>(T obj) where T : LevelData.ISpawnable {
-    for (int i = 0; i < obj.GetAmount(); i++) {
-      GameObject enemy = poolManager.EnemyPools[obj.GetType()].PopObject();
-      enemy.transform.position = obj.GetPositions().Length != 0 ? new Vector3(obj.GetPositions()[i], 6, 0) : new Vector3(Random.Range(-7, 7), 6, 0);
-      enemy.SetActive(true);
+  private static void  SpawnGameObject<T>(T objectData) where T : LevelData.ISpawnable {
+    for (int i = 0; i < objectData.GetAmount(); i++) {
+      GameObject obj = typeof(T) == typeof(LevelData.Enemy) ? poolManager.EnemyPools[objectData.GetType()].PopObject() : poolManager.PowerUpPool.PopObject(objectData.GetType());
+      obj.transform.position = objectData.GetPositions().Length != 0 ? new Vector3(objectData.GetPositions()[i], 6, 0) : new Vector3(Random.Range(-7, 7), 6, 0);
+      obj.SetActive(true);
  
-      waveObjects.Add(enemy);
+      waveObjects.Add(obj);
     }
   }
 
