@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PoolManager))]
+
 public class WaveSpawner : MonoBehaviour {
 
   #region Fields
@@ -24,9 +26,9 @@ public class WaveSpawner : MonoBehaviour {
   public static List<GameObject> SpawnWave(LevelData.Wave wave) {
     waveObjects = new List<GameObject>();
     if (wave.enemies != null)
-      SpawnEnemies(wave);
+      SpawnWaveGameObjects<LevelData.Enemy>(wave.enemies);
     if (wave.powerUps != null)
-      SpawnPowerUps(wave);   
+      SpawnWaveGameObjects<LevelData.PowerUp>(wave.powerUps);   
 
     return waveObjects;
   }
@@ -35,37 +37,19 @@ public class WaveSpawner : MonoBehaviour {
 
   #region Private Behaviour
 
-  // ENEMIES
-  private static void SpawnEnemies(LevelData.Wave wave) {
-    for (int i = 0; i < wave.enemies.Length; i++)
-      if (wave.enemies[i].amount != 0)
-        SpawnEnemy(wave.enemies[i]);
+  private static void SpawnWaveGameObjects<T>(T[] gameObjects) where T : LevelData.ISpawnable {
+    for (int i = 0; i < gameObjects.Length; i++)
+      if (gameObjects[i].GetAmount() != 0)
+        SpawnGameObject(gameObjects[i]);
   }
 
-  private static void  SpawnEnemy(LevelData.Enemy enemyData) {
-    for (int i = 0; i < enemyData.amount; i++) {
-      GameObject enemy = poolManager.EnemyPools[(int) enemyData.type].PopObject();
-      enemy.transform.position = enemyData.positions.Length != 0 ? new Vector3(enemyData.positions[i], 6, 0) : new Vector3(Random.Range(-7, 7), 6, 0);
+  private static void  SpawnGameObject<T>(T obj) where T : LevelData.ISpawnable {
+    for (int i = 0; i < obj.GetAmount(); i++) {
+      GameObject enemy = poolManager.EnemyPools[obj.GetType()].PopObject();
+      enemy.transform.position = obj.GetPositions().Length != 0 ? new Vector3(obj.GetPositions()[i], 6, 0) : new Vector3(Random.Range(-7, 7), 6, 0);
       enemy.SetActive(true);
  
       waveObjects.Add(enemy);
-    }
-  }
- 
-  // POWER UPS
-  private static void SpawnPowerUps(LevelData.Wave wave) {
-    for (int i = 0; i < wave.powerUps.Length; i++)
-      if (wave.powerUps[i].amount != 0)
-        SpawnPowerUp(wave.powerUps[i]);
-  }
-
-  private static void SpawnPowerUp(LevelData.PowerUp powerUpData) {
-    for (int i = 0; i < powerUpData.amount; i++) {
-      GameObject powerUp = poolManager.PowerUpPool.PopObject(powerUpData.type);
-      powerUp.transform.position = powerUpData.positions.Length != 0 ? new Vector3(powerUpData.positions[i], 6, 0) : new Vector3(Random.Range(-7, 7), 6, 0);
-      powerUp.SetActive(true);
-
-      waveObjects.Add(powerUp);
     }
   }
 

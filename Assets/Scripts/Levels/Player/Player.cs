@@ -15,12 +15,12 @@ public class Player : MonoBehaviour {
 
   void OnEnable() {
     EventManager.StartListening<EnemyHitEvent>(OnEnemyHitEvent);
-    EventManager.StartListening<StartGameEvent>(OnStartGameEvent);
+    EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   void OnDisable() {
     EventManager.StopListening<EnemyHitEvent>(OnEnemyHitEvent);
-    EventManager.StopListening<StartGameEvent>(OnStartGameEvent);
+    EventManager.StopListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour {
     EventManager.TriggerEvent(new ScoreUIEvent(score)); 
   }
 
-  void OnStartGameEvent(StartGameEvent startGameEvent) {
+  void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
     RestartPlayer();
   }
 

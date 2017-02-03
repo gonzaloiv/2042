@@ -47,7 +47,7 @@ public class RestartLevelState : State {
   #region Event Behaviour
 
   void OnEnterInput(EnterInput enterInput) {
-    EventManager.TriggerEvent(new StartGameEvent());
+    EventManager.TriggerEvent(new RestartGameEvent());
   }
 
   #endregion

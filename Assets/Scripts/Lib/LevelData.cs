@@ -25,8 +25,14 @@ namespace LevelData {
 
   }
 
+  public interface ISpawnable {
+    int GetType();
+    int GetAmount();
+    int[] GetPositions();
+  }
+
   [Serializable]
-  public struct Enemy {
+  public struct Enemy : ISpawnable {
 
     public EnemyType type;
     public int amount;
@@ -38,19 +44,43 @@ namespace LevelData {
       this.positions = positions;
     }
 
+    public new int GetType() {
+      return (int) this.type;
+    }
+
+    public int GetAmount() {
+      return this.amount;
+    }
+
+    public int[] GetPositions() {
+      return this.positions;
+    }
+
   }
 
   [Serializable]
-  public struct PowerUp {
+  public struct PowerUp : ISpawnable {
 
-    public int type;
+    public PowerUpType type;
     public int amount;
     public int[] positions;
 
-    public PowerUp(int type, int amount, int[] positions = null) {
+    public PowerUp(PowerUpType type, int amount, int[] positions = null) {
       this.type = type;
       this.amount = amount;
       this.positions = positions;
+    }
+
+    public new int GetType() {
+      return (int) this.type;
+    }
+
+    public int GetAmount() {
+      return this.amount;
+    }
+
+    public int[] GetPositions() {
+      return this.positions;
     }
 
   }

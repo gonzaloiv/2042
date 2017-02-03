@@ -47,6 +47,7 @@ public class ShipGroup : MonoBehaviour {
         if (ship.gameObject.activeInHierarchy)
           ship.ChangeState<IdleShipState>();
     }
+    gameObject.SetActive(false);
   }
 
   private bool HasActiveChildren() {

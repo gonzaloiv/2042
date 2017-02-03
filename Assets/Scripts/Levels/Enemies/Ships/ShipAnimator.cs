@@ -15,6 +15,7 @@ public class ShipAnimator : StateMachine {
   void OnEnable() {
     shipBehaviourRoutine = ShipBehaviourRoutine();
     StartCoroutine(shipBehaviourRoutine);
+    ChangeState<IdleShipState>();
   }
 
   void OnDisable() {

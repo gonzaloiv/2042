@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PlayWaveState : State {
+public class WaveLevelState : State {
 
   #region Fields
 
@@ -22,7 +22,6 @@ public class PlayWaveState : State {
   void Awake() {
     level = GetComponent<Level>();
     currentLevel = level.CurrentLevel;
-
     waveObjects = new List<GameObject>();
   }
 
@@ -49,12 +48,12 @@ public class PlayWaveState : State {
 
   protected override void AddListeners() {
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
-    EventManager.StartListening<StartGameEvent>(OnStartGameEvent);
+    EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   protected override void RemoveListeners() {
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
-    EventManager.StartListening<StartGameEvent>(OnStartGameEvent);
+    EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   #endregion
@@ -65,7 +64,7 @@ public class PlayWaveState : State {
     gameOver = true;
   }
 
-  void OnStartGameEvent(StartGameEvent startGameEvent) {
+  void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
     gameOver = false;
     RestartState();
   }
@@ -76,9 +75,7 @@ public class PlayWaveState : State {
 
   private IEnumerator SpawningRoutine() {
 
-    // TESTING
-    // LevelData.Wave wave = level.GameData[currentLevel - 1].waves[currentWave - 1];
-    LevelData.Wave wave = level.GameData[0].waves[currentWave - 1];
+    LevelData.Wave wave = level.GameData[currentLevel - 1].waves[currentWave - 1];
     waveObjects = WaveSpawner.SpawnWave(wave);
 
     if (wave.duration != 0)
@@ -86,10 +83,10 @@ public class PlayWaveState : State {
 
     if (gameOver) {
       EventManager.TriggerEvent(new RestartScreenEvent());
-    } else if (IsLevelLastWave()) {
+    } else if (LevelHasNextWave()) {
       EventManager.TriggerEvent(new EndWaveEvent());
     } else {
-      while (waveObjects.LastOrDefault().activeInHierarchy)
+      while (HasActiveChildren())
         yield return new WaitForSeconds(.1f);
       // TODO: resolver problema durante la espera en caso de cambio de nivel con otro estado
       if (gameOver) {
@@ -106,9 +103,12 @@ public class PlayWaveState : State {
     currentWave = Config.InitialWave;
   }
 
-  private bool IsLevelLastWave() {
-//    return level.GameData[currentLevel - 1].waves.Length > currentWave;
-    return level.GameData[0].waves.Length > currentWave;
+  private bool LevelHasNextWave() {
+    return level.GameData[currentLevel - 1].waves.Length > currentWave;
+  }
+
+  private bool HasActiveChildren() {
+    return waveObjects.Where(x => x.activeInHierarchy).Count() != 0;
   }
 
   #endregion

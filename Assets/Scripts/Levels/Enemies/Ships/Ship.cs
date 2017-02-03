@@ -18,7 +18,6 @@ public class Ship : StateMachine {
 
   void OnEnable() {
     transform.rotation = Quaternion.Euler(0, 0, 180);
-    ChangeState<IdleShipState>();
   }
 
   #endregion

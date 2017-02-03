@@ -37,7 +37,7 @@ public class EndWaveEvent : UnityEvent {}
 public class EndLevelEvent : UnityEvent {}
 public class GameOverEvent :UnityEvent {}
 public class RestartScreenEvent : UnityEvent {}
-public class StartGameEvent :UnityEvent {}
+public class RestartGameEvent :UnityEvent {}
 
 #endregion
 
