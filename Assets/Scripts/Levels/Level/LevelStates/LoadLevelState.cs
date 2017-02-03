@@ -25,10 +25,9 @@ public class LoadLevelState : State {
     level = GetComponent<Level>();    
     poolManager = GetComponent<PoolManager>();
 
-    poolManager.InitializePlayerShotPool();
+    poolManager.InitializeShotPools();
     Instantiate(playerPrefab, transform);
 
-    poolManager.InitializeEnemyShotPool();
     poolManager.InitializeEnemyPools();
     poolManager.InitializePowerUpPool();
   }

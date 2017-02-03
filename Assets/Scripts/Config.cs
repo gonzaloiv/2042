@@ -29,6 +29,7 @@ public class Config {
 
   // Enemies
   public const float RocketSpeed = .12f;
+  public const int InitialRocketGroupLives = 5;
 }
 
 // GLOBAL
@@ -56,14 +57,15 @@ public enum EnemyType {
   UFO,
   Rocket,
   Ship,
-  ShipGroup
+  ShipGroup,
+  StationGroup
 }
 
 public enum EnemyScore {
   Meteor = 5,
   UFO = 10,
-  Rocket = 0,
   Ship = 15,
+  Station = 50
 }
 
 public enum PowerUpType {

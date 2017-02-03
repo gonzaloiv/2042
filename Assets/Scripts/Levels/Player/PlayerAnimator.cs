@@ -8,17 +8,16 @@ public class PlayerAnimator : MonoBehaviour {
 
   #region Fields
 
-  private Animator animator;
-  private ParticleSystem shootingParticleSystem;
+  private Animator anim;
+  private ParticleSystem particles;
 
   #endregion
 
   #region Mono Behaviour
 
   void Awake() {
-    animator = GetComponent<Animator>();
-
-    shootingParticleSystem = GetComponentInChildren<ParticleSystem>();
+    anim = GetComponent<Animator>();
+    particles = GetComponentInChildren<ParticleSystem>();
   }
 
   void OnEnable() {
@@ -39,11 +38,11 @@ public class PlayerAnimator : MonoBehaviour {
 
   void OnCollisionEnter2D(Collision2D collision2D) {
     if (collision2D.gameObject.layer != (int) CollisionLayer.PowerUp) {
-      animator.Play("Respawn");
+      anim.Play("Respawn");
       transform.position = Config.PlayerSpawningPosition;
     } else {
       if (collision2D.gameObject.name.Contains("PUInvulnerability"))
-        animator.Play("Invulnerable");
+        anim.Play("Invulnerable");
     }
   }
 
@@ -52,23 +51,23 @@ public class PlayerAnimator : MonoBehaviour {
   #region Event Behaviour
 
   void OnMoveRightInput(MoveRightInput moveRightInput) {
-    animator.Play("MoveRight");
+    anim.Play("MoveRight");
   }
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
-    animator.Play("MoveLeft");
+    anim.Play("MoveLeft");
   }
 
   void OnPlayerShotInput(PlayerShotInput playerShotInput) {
-    shootingParticleSystem.Play();
+    particles.Play();
   }
 
   void OnGameOverEvent(GameOverEvent gameOverEvent) {
-    animator.Play("Die");
+    anim.Play("Die");
   }
 
   void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
-    animator.Play("Idle");
+    anim.Play("Idle");
   }
 
 

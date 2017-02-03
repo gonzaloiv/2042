@@ -65,9 +65,9 @@ public class PlayerController : MonoBehaviour {
   #region Private Behaviour
 
   public IEnumerator DoubleSpeed() {
-    TimeManager.ModifyTimeScale(.5f);
+    TimeManager.AlterTimeScale(.5f);
     yield return new WaitForSeconds(2);
-    TimeManager.ModifyTimeScale(2f);
+    TimeManager.AlterTimeScale(2f);
   }
 
   #endregion

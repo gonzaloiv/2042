@@ -8,8 +8,8 @@ public class Enemy : ShooterBehaviour {
 
   #region Mono Behaviour
 
-  private Animator anim;
-  private int score;
+  protected Animator anim;
+  protected int score;
 
   #endregion
 

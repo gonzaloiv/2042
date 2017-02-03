@@ -37,7 +37,7 @@ public class TimeManager : MonoBehaviour {
     Time.timeScale = Config.TimeScale;
   }
 
-  public static void ModifyTimeScale(float percentage) {
+  public static void AlterTimeScale(float percentage) {
     Time.timeScale = Time.timeScale * percentage;
   }
 

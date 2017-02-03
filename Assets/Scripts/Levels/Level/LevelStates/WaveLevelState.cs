@@ -29,24 +29,22 @@ public class WaveLevelState : State {
   public override void Enter() {
     base.Enter();
 
-    spawningRoutine = SpawningRoutine();
-    StartCoroutine(spawningRoutine);
+    StartCoroutine(SpawningRoutine());
   }
 
   public override void Exit() {
     base.Exit();
 
-    StopCoroutine(spawningRoutine);
+    StopAllCoroutines();
+    gameOver = false;
   }
 
   protected override void AddListeners() {
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
-    EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   protected override void RemoveListeners() {
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
-    EventManager.StartListening<RestartGameEvent>(OnRestartGameEvent);
   }
 
   #endregion
@@ -55,10 +53,6 @@ public class WaveLevelState : State {
 
   void OnGameOverEvent(GameOverEvent gameOverEvent) {
     gameOver = true;
-  }
-
-  void OnRestartGameEvent(RestartGameEvent restartGameEvent) {
-    gameOver = false;
   }
 
   #endregion
@@ -72,17 +66,34 @@ public class WaveLevelState : State {
     if (currentWave.duration != 0)
       yield return new WaitForSeconds(currentWave.duration);
 
-    if (!gameOver && level.HasMoreWaves()) {
-      EventManager.TriggerEvent(new EndWaveEvent());
-    } else {
-      while (HasActiveChildren())
-        yield return new WaitForSeconds(.1f);
-      if (gameOver)
-        EventManager.TriggerEvent(new RestartScreenEvent());
-      else
-        EventManager.TriggerEvent(new EndLevelEvent());
-    } 
+    if (currentWave.isChiefWave)
+      StartCoroutine(ChiefRoutine());
+    else
+      StartCoroutine(WaveRoutine());
+  }
 
+  private IEnumerator WaveRoutine() {
+    if (level.HasMoreWaves())
+      EventManager.TriggerEvent(new EndWaveEvent());
+
+    while (HasActiveChildren())
+      yield return new WaitForSeconds(.1f);
+
+    if (gameOver)
+      EventManager.TriggerEvent(new RestartScreenEvent());
+    else
+      EventManager.TriggerEvent(new EndLevelEvent());
+  }
+
+  private IEnumerator ChiefRoutine() {
+    while (HasActiveChildren()) {
+      if (gameOver) {
+        EventManager.TriggerEvent(new RestartScreenEvent());
+        waveObjects.ForEach(x => x.SetActive(false));
+      }
+      yield return new WaitForSeconds(.1f);
+    }
+    EventManager.TriggerEvent(new EndLevelEvent());
   }
 
   private bool HasActiveChildren() {

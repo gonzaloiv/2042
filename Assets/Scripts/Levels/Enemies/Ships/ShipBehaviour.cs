@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipAnimator : StateMachine {
+public class ShipBehaviour : StateMachine {
 
   #region Fields
 
@@ -15,7 +15,6 @@ public class ShipAnimator : StateMachine {
   void OnEnable() {
     shipBehaviourRoutine = ShipBehaviourRoutine();
     StartCoroutine(shipBehaviourRoutine);
-    ChangeState<IdleShipState>();
   }
 
   void OnDisable() {

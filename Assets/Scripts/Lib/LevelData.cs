@@ -16,11 +16,13 @@ namespace LevelData {
     public Enemy[] enemies;
     public PowerUp[] powerUps;
     public float duration;
+    public bool isChiefWave;
 
-    public Wave(Enemy[] enemies = null, PowerUp[] powerUps = null, float duration = 0) {
+    public Wave(Enemy[] enemies = null, PowerUp[] powerUps = null, float duration = 0, bool isChiefWave = false) {
       this.enemies = enemies;
       this.powerUps = powerUps;
       this.duration = duration;
+      this.isChiefWave = isChiefWave;
     }
 
   }

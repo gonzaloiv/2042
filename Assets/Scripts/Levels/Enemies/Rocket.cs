@@ -17,13 +17,11 @@ public class Rocket : ShooterBehaviour {
 
   #region Mono Behaviour
 
-  void Awake() {
+  void OnEnable() {
     direction = Random.Range(1, 10) > 5 ? new Vector2(0, 1) : new Vector2(0, -1);
     if(direction.y == 1)
       transform.Rotate(new Vector3(0, 0, 180));
-  }
 
-  void OnEnable() {
     transform.position = new Vector2(direction.y * 8 + Random.Range(0, 2), transform.position.y);
   }
 

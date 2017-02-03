@@ -79,7 +79,6 @@ public class LevelController : StateMachine {
     ChangeState<LoadLevelState>();
     yield return new WaitForSeconds(2f);
     ChangeState<WaveLevelState>();
-//    StopCoroutine(loadLevelRoutine);
   }
 
   #endregion

@@ -37,6 +37,7 @@ public class Pooler : MonoBehaviour {
     return gameObjectArrayPool;
   }
 
+  // Common
   public static void AddPool<T>(string poolName, T pool) where T : IPool {
     pools.Add(poolName, pool);
   }

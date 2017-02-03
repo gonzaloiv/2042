@@ -8,12 +8,14 @@ public class PoolManager : Pooler {
 
   [SerializeField] private GameObject playerShotPrefab;
   [SerializeField] private GameObject enemyShotPrefab;
+  [SerializeField] private GameObject stationShotPrefab;
 
   [SerializeField] private GameObject[] meteorPrefabs;
   [SerializeField] private GameObject[] ufoPrefabs;
   [SerializeField] private GameObject[] rocketPrefabs;
   [SerializeField] private GameObject[] shipPrefabs;
   [SerializeField] private GameObject shipGroupPrefab;
+  [SerializeField] private GameObject stationGroupPrefab;
 
   [SerializeField] private GameObject[] powerUpPrefabs;
 
@@ -29,12 +31,10 @@ public class PoolManager : Pooler {
 
   #region Public Behaviour
   
-  public void InitializePlayerShotPool() {
+  public void InitializeShotPools() {
     CreateGameObjectPool("PlayerShotPool", playerShotPrefab, 30, transform);
-  }
-
-  public void InitializeEnemyShotPool() {
-    CreateGameObjectPool("EnemyShotPool", enemyShotPrefab, 30, transform);
+    CreateGameObjectPool("EnemyShotPool", enemyShotPrefab, 20, transform);
+    CreateGameObjectPool("StationShotPool", stationShotPrefab, 3, transform);
   }
 
   public void InitializeEnemyPools() {
@@ -48,6 +48,7 @@ public class PoolManager : Pooler {
     enemyPools.Add(CreateGameObjectPool("RocketPool", rocketPrefabs, 4, levelEnemies));
     enemyPools.Add(CreateGameObjectPool("ShipPool", shipPrefabs, 5, levelEnemies));
     enemyPools.Add(CreateGameObjectPool("ShipGroupPool", shipGroupPrefab, 1, levelEnemies));
+    enemyPools.Add(CreateGameObjectPool("StationGroupPool", stationGroupPrefab, 1, levelEnemies));
   }
 
   public void InitializePowerUpPool() {
